@@ -1,0 +1,80 @@
+<mat-toolbar color="primary">
+    Передать оборудование
+    <div class="rightPositionToolBar">
+        <button (click)="close()" mat-icon-button tabindex="-1" title="Закрыть">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+<form [formGroup]="transferForm">
+    <mat-chip-list>
+        <mat-chip (removed)="cancel(equipment.equipment.id)" *ngFor="let equipment of equipments"
+                  id="equipment{{equipment.equipment.id}}">
+            {{equipment.equipment.profile.title}}({{equipment.equipment.serialNumber}})
+            <button matChipRemove>
+                <mat-icon>remove_circle</mat-icon>
+            </button>
+        </mat-chip>
+    </mat-chip-list>
+    <mat-form-field>
+        <mat-label>Дата</mat-label>
+        <input [formControl]="date" [matDatepicker]="picker" matInput>
+        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="date.invalid">{{inputErrorMessage(date)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Куда передать</mat-label>
+        <mat-select (selectionChange)="whereTransfer()" [formControl]="where">
+            <mat-option value="department">Отдел</mat-option>
+            <mat-option value="employee">Сотрудник</mat-option>
+            <mat-option value="contract" *ngIf="!isContract">Абонент</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <div [ngSwitch]="where.value">
+        <ng-template ngSwitchCase="department">
+            <mat-form-field>
+                <mat-label>Отдел</mat-label>
+                <mat-select [formControl]="toDepartment">
+                    <mat-option *ngIf="storage" [value]=0>Склад</mat-option>
+                    <mat-option *ngFor="let department of departments"
+                                [value]="department.id">{{department.title}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="toDepartment.invalid">{{inputErrorMessage(toDepartment)}}</mat-error>
+            </mat-form-field>
+        </ng-template>
+        <ng-template ngSwitchCase="employee">
+            <mat-slide-toggle (change)="employeeList()" [formControl]="inDepartment" color="primary">
+                В отделе
+            </mat-slide-toggle>
+            <br>
+            <mat-form-field>
+                <mat-label>Сотрудник</mat-label>
+                <mat-select [formControl]="toEmployee">
+                    <mat-option *ngFor="let employee of employees"
+                                [value]="employee.id">{{employee.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="toEmployee.invalid">{{inputErrorMessage(toEmployee)}}</mat-error>
+            </mat-form-field>
+        </ng-template>
+        <ng-template ngSwitchCase="contract">
+            <mat-form-field>
+                <mat-label>Номер договора</mat-label>
+                <input (ngModelChange)="searchContract()" [formControl]="toContract" [matAutocomplete]="auto" matInput
+                       type="text">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let contract of filteredContracts|async"
+                                [value]="contract.number">
+                        {{contract.number}}({{contract.address}})
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="toContract.invalid">{{inputErrorMessage(toContract)}}</mat-error>
+            </mat-form-field>
+        </ng-template>
+    </div>
+    <button (click)="ok()" [disabled]="transferForm.invalid" mat-stroked-button>
+        OK
+    </button>
+</form>

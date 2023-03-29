@@ -1,0 +1,17 @@
+.scroll {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 25px;
+}
+
+app-history {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.alignment {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+}

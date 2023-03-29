@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+    {{head}}
+    <div class="rightPositionToolBar">
+        <button (click)="close()" mat-icon-button tabindex="-1" title="Закрыть">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+<form [formGroup]="profileForm">
+    <mat-form-field>
+        <mat-label>Название</mat-label>
+        <input (focusout)="removeSpaces()" (input)="check()" [formControl]="title" matInput type="text">
+        <mat-error *ngIf="title.invalid">{{inputErrorMessage(title)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Категория</mat-label>
+        <mat-select (selectionChange)="check()" [formControl]="category">
+            <mat-option *ngFor="let category of categories" [value]="category.id">{{category.title}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="category.invalid">{{inputErrorMessage(category)}}}</mat-error>
+    </mat-form-field>
+    <br>
+    <button (click)="ok()" [disabled]="profileForm.invalid||!changed" mat-stroked-button>
+        OK
+    </button>
+</form>

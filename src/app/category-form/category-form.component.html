@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+    {{head}}
+    <div class="rightPositionToolBar">
+        <button (click)="close()" mat-icon-button tabindex="-1" title="Закрыть">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+<form [formGroup]="categoryForm">
+    <mat-form-field>
+        <mat-label>Название</mat-label>
+        <input (focusout)="removeSpaces()" (input)="check()" [formControl]="title" matInput type="text">
+        <mat-error *ngIf="title.invalid">{{inputErrorMessage(title)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <button (click)="ok()" [disabled]="categoryForm.invalid||!changed" mat-stroked-button>
+        OK
+    </button>
+</form>

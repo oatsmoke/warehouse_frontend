@@ -1,4 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-simple-snack-bar-content {
+    margin: auto;
+}
+
+.mat-toolbar-single-row {
+    height: auto;
+}
+
+.mat-dialog-container {
+    padding: 0 !important;
+}
+
+form {
+    padding: 25px;
+    text-align: center;
+}
+
+.mat-chip-list-wrapper {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    margin: 0 !important;
+}
+
+.mat-chip-remove {
+    margin-left: auto !important;
+}
+
+.mat-table {
+    width: 100%;
+}
+
+.rightPositionTable {
+    text-align: right;
+    width: 40px;
+}
+
+.rightPositionToolBar {
+    padding-left: 10px;
+    width: 100%;
+    text-align: right;
+}

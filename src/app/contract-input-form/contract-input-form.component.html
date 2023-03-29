@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+    Найти договор
+    <div class="rightPositionToolBar">
+        <button (click)="close()" mat-icon-button tabindex="-1" title="Закрыть">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+<form [formGroup]="searchContractForm">
+    <mat-form-field>
+        <mat-label>Номер договора</mat-label>
+        <input (ngModelChange)="searchContract()" [formControl]="number" [matAutocomplete]="auto" matInput type="text">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let contract of filteredContracts|async"
+                        [value]="contract.number">
+                {{contract.number}}({{contract.address}})
+            </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="number.invalid">{{inputErrorMessage(number)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <button (click)="ok()" [disabled]="searchContractForm.invalid" mat-stroked-button>OK</button>
+</form>

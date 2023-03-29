@@ -1,0 +1,43 @@
+<mat-toolbar color="primary">
+    {{head}}
+    <div class="rightPositionToolBar">
+        <button (click)="close()" mat-icon-button tabindex="-1" title="Закрыть">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+<form [formGroup]="employeeForm">
+    <mat-form-field>
+        <mat-label>Фамилия</mat-label>
+        <input (input)="check()" [formControl]="surname" matInput type="text">
+        <mat-error *ngIf="surname.invalid">{{inputErrorMessage(surname)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Имя</mat-label>
+        <input (input)="check()" [formControl]="name" matInput type="text">
+        <mat-error *ngIf="name.invalid">{{inputErrorMessage(name)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Отчество</mat-label>
+        <input (input)="check()" [formControl]="patronymic" matInput type="text">
+        <mat-error *ngIf="patronymic.invalid">{{inputErrorMessage(patronymic)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Телефон</mat-label>
+        <input (input)="check()" [formControl]="phone" matInput type="tel">
+        <mat-error *ngIf="phone.invalid">{{inputErrorMessage(phone)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Почта</mat-label>
+        <input (input)="check()" [formControl]="email" matInput type="email">
+        <mat-error *ngIf="email.invalid">{{inputErrorMessage(email)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <button (click)="ok()" [disabled]="employeeForm.invalid||!changed" mat-stroked-button>
+        OK
+    </button>
+</form>

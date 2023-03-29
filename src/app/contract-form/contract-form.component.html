@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+    {{head}}
+    <div class="rightPositionToolBar">
+        <button (click)="close()" mat-icon-button tabindex="-1" title="Закрыть">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+<form [formGroup]="contractForm">
+    <mat-form-field>
+        <mat-label>Номер договора</mat-label>
+        <input (input)="check()" [formControl]="number" matInput type="text">
+        <mat-error *ngIf="number.invalid">{{inputErrorMessage(number)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Адрес</mat-label>
+        <input (focusout)="removeSpaces()" (input)="check()" [formControl]="address" matInput required type="text">
+        <mat-error *ngIf="address.invalid">{{inputErrorMessage(address)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <button (click)="ok()" [disabled]="contractForm.invalid||!changed" mat-stroked-button>
+        OK
+    </button>
+</form>

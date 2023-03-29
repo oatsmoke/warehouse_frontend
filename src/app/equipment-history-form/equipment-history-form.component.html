@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+    {{head}}
+    <div class="rightPositionToolBar">
+        <button (click)="close()" mat-icon-button tabindex="-1" title="Закрыть">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+<div class="scroll">
+    <div *ngIf="first">
+        <app-history [location]="first"></app-history>
+        <button (click)="cancel(first.id)" *ngIf="!onlyOne" class="alignment" mat-icon-button tabindex="-1">
+            <mat-icon title="Отменить">remove_circle</mat-icon>
+        </button>
+    </div>
+    <div *ngFor="let location of history">
+        <mat-divider></mat-divider>
+        <app-history [location]="location"></app-history>
+    </div>
+</div>

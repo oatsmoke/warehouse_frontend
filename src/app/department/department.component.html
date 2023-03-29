@@ -1,0 +1,31 @@
+<mat-toolbar>
+    Отделы
+    <button (click)="dialogCreateDepartment()" mat-icon-button>
+        <mat-icon title="Добавить отдел">add_circle</mat-icon>
+    </button>
+</mat-toolbar>
+<app-no-content *ngIf="!departments"></app-no-content>
+<table *ngIf="departments" [dataSource]="departments" mat-table>
+    <ng-container matColumnDef="title">
+        <th *matHeaderCellDef mat-header-cell>Название</th>
+        <td *matCellDef="let column" mat-cell>{{column.title}}</td>
+    </ng-container>
+    <ng-container matColumnDef="control">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let column" class="rightPositionTable" mat-cell>
+            <button [matMenuTriggerFor]="options" mat-icon-button>
+                <mat-icon>expand_circle_down</mat-icon>
+            </button>
+            <mat-menu #options="matMenu">
+                <button (click)="updateDepartment(column.id)" mat-menu-item>
+                    Изменить
+                </button>
+                <button (click)="deleteDepartment(column.id)" mat-menu-item>
+                    Удалить
+                </button>
+            </mat-menu>
+        </td>
+    </ng-container>
+    <tr *matHeaderRowDef="columns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: columns;" mat-row></tr>
+</table>
