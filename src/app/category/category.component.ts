@@ -12,7 +12,7 @@ import {GlobalService} from "../service/global.service";
 })
 export class CategoryComponent implements OnInit {
     categories: Category[] = []
-    columns: string[] = ["title", "control"];
+    columns: string[] = ["title", "control"]
 
     constructor(private activatedRoute: ActivatedRoute,
                 private dialog: MatDialog,
@@ -26,19 +26,19 @@ export class CategoryComponent implements OnInit {
         })
     }
 
-    dialogCreateCategory() {
-        this.dialog.open(DialogCategoryForm).afterClosed().pipe(first()).subscribe(_ => {
-            this.getCategories()
-        })
-    }
-
     getCategories() {
         this.categoryService.getAll().pipe(first()).subscribe((value: any) => {
             this.categories = value
         })
     }
 
-    updateCategory(id: number) {
+    dialogCreateCategory() {
+        this.dialog.open(DialogCategoryForm).afterClosed().pipe(first()).subscribe(_ => {
+            this.getCategories()
+        })
+    }
+
+    dialogUpdateCategory(id: number) {
         this.categoryService.getById(id).pipe(first()).subscribe((value: Category) => {
             const category = {
                 id: id,
@@ -50,7 +50,7 @@ export class CategoryComponent implements OnInit {
         })
     }
 
-    deleteCategory(id: number) {
+    dialogDeleteCategory(id: number) {
         this.dialog.open(DialogCategoryDelete).afterClosed().pipe(first()).subscribe(value => {
             if (value) {
                 this.categoryService.delete(id).pipe(first()).subscribe({

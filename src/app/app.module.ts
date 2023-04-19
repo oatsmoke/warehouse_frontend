@@ -78,18 +78,22 @@ import {EquipmentResolver} from "./resolver/equipment.resolver";
 import {CategoryResolver} from "./resolver/category.resolver";
 import {ProfileResolver} from "./resolver/profile.resolver";
 import {GetUserResolver} from "./resolver/get-user.resolver";
+import {CompanyComponent, DialogCompanyDelete, DialogCompanyForm} from './company/company.component';
+import {CompanyResolver} from "./resolver/company.resolver";
+import { CompanyFormComponent } from './company-form/company-form.component';
 
 const mainRoutes: Routes = [
     {path: "home", component: HomeComponent},
-    {path: "employee", component: EmployeeComponent, resolve: {employeeResolver: EmployeeResolver}},
-    {path: "department", component: DepartmentComponent, resolve: {departmentResolver: DepartmentResolver}},
     {
         path: ":partition/:id",
         component: EquipmentComponent,
         resolve: {partitionResolver: PartitionResolver, equipmentResolver: EquipmentResolver}
     },
+    {path: "employee", component: EmployeeComponent, resolve: {employeeResolver: EmployeeResolver}},
+    {path: "department", component: DepartmentComponent, resolve: {departmentResolver: DepartmentResolver}},
     {path: "category", component: CategoryComponent, resolve: {categoryResolver: CategoryResolver}},
     {path: "profile", component: ProfileComponent, resolve: {profileResolver: ProfileResolver}},
+    {path: "company", component: CompanyComponent, resolve: {companyResolver: CompanyResolver}},
     {path: "**", redirectTo: "home"}
 ]
 
@@ -124,6 +128,8 @@ const appRoutes: Routes = [
         DialogContractUpdateForm,
         DialogContractDelete,
         DialogContractInputForm,
+        DialogCompanyDelete,
+        DialogCompanyForm,
         HomeComponent,
         MainComponent,
         EmployeeComponent,
@@ -144,7 +150,9 @@ const appRoutes: Routes = [
         HistoryComponent,
         ContractFormComponent,
         ContractInputFormComponent,
-        ShellComponent
+        ShellComponent,
+        CompanyComponent,
+        CompanyFormComponent
     ],
     imports: [
         BrowserModule,

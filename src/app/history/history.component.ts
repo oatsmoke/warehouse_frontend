@@ -13,6 +13,20 @@ export class HistoryComponent implements OnInit {
     }
 
     ngOnInit(): void {
+    }
 
+    transferTypeConvert(value: string): string {
+        switch (value) {
+            case 'rent':
+                return "Аренда"
+            case 'responsible':
+                return "Ответственное хранение"
+            case 'buy':
+                return "Продажа"
+            case 'installment':
+                return "Рассрочка"
+            default:
+                return value
+        }
     }
 }

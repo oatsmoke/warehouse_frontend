@@ -13,9 +13,8 @@ export class PartitionResolver implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-        route.url.map(value => this.globalService.path = value.path)
         return this.httpClient.post<any>(
-            "http://localhost:2020/api/" + route.paramMap.get("partition") + "/getById",
+            this.globalService.API_URL + "/api/" + route.paramMap.get("partition") + "/getById",
             {id: Number(route.paramMap.get("id"))})
     }
 }

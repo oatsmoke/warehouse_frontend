@@ -41,6 +41,12 @@ export class EquipmentTransferFormComponent implements OnInit {
         Validators.pattern("[0-9]+"),
         Validators.maxLength(10)
     ])
+    transferType = new FormControl("", Validators.required)
+    price = new FormControl("", [
+        Validators.required,
+        Validators.pattern("[0-9]+"),
+        Validators.maxLength(10)
+    ])
 
     constructor(private formBuilder: FormBuilder,
                 private equipmentService: EquipmentService,
@@ -56,7 +62,9 @@ export class EquipmentTransferFormComponent implements OnInit {
             inDepartment: this.inDepartment,
             toDepartment: this.toDepartment,
             toEmployee: this.toEmployee,
-            toContract: this.toContract
+            toContract: this.toContract,
+            transferType: this.transferType,
+            price: this.price
         })
     }
 
@@ -91,6 +99,8 @@ export class EquipmentTransferFormComponent implements OnInit {
             this.toDepartment.enable()
             this.toEmployee.disable()
             this.toContract.disable()
+            this.transferType.disable()
+            this.price.disable()
             this.inDepartment.setValue(false)
             this.departmentList()
         }
@@ -98,6 +108,8 @@ export class EquipmentTransferFormComponent implements OnInit {
             this.toDepartment.disable()
             this.toEmployee.enable()
             this.toContract.disable()
+            this.transferType.disable()
+            this.price.disable()
             if (this.data.thisLocation.partition == "employee" || this.data.thisLocation.partition == "contract") {
                 this.inDepartment.setValue(false)
                 this.inDepartment.disable()
@@ -111,6 +123,8 @@ export class EquipmentTransferFormComponent implements OnInit {
             this.toDepartment.disable()
             this.toEmployee.disable()
             this.toContract.enable()
+            this.transferType.enable()
+            this.price.enable()
             this.inDepartment.setValue(false)
             this.contractList()
         }
@@ -203,12 +217,16 @@ export class EquipmentTransferFormComponent implements OnInit {
                 date: new Date(value.date).getTime() / 1000,
                 where: value.where,
                 inDepartment: value.inDepartment,
+                company: e.company.id,
                 toDepartment: toDepartment,
                 toEmployee: value.toEmployee,
-                toContract: this.contractId
+                toContract: this.contractId,
+                transferType: value.transferType,
+                price: value.price
             }
             requestLocation.push(request)
         }
+        console.log(requestLocation)
         this.locationService.transferTo(requestLocation).pipe(first()).subscribe({
             next: _ => {
                 this.globalService.msg("ОК")

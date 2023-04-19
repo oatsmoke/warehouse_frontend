@@ -72,6 +72,22 @@
                 </mat-autocomplete>
                 <mat-error *ngIf="toContract.invalid">{{inputErrorMessage(toContract)}}</mat-error>
             </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Тип передачи</mat-label>
+                <mat-select [formControl]="transferType">
+                    <mat-option value="rent">Аренда</mat-option>
+                    <mat-option value="responsible">Ответственное хранение</mat-option>
+                    <mat-option value="buy">Покупка</mat-option>
+                    <mat-option value="installment">Рассрочка</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Цена</mat-label>
+                <input [formControl]="price" matInput type="text">
+                <mat-error *ngIf="price.invalid">{{inputErrorMessage(price)}}</mat-error>
+            </mat-form-field>
         </ng-template>
     </div>
     <button (click)="ok()" [disabled]="transferForm.invalid" mat-stroked-button>

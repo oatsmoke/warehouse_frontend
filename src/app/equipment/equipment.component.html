@@ -31,6 +31,11 @@
         <td (click)="pick(column.equipment.id)" *matCellDef="let column" mat-cell>
             {{column.equipment.profile.category.title}}</td>
     </ng-container>
+    <ng-container matColumnDef="company">
+        <th *matHeaderCellDef mat-header-cell>Компания</th>
+        <td (click)="pick(column.equipment.id)" *matCellDef="let column" mat-cell>
+            {{column.company.title}}</td>
+    </ng-container>
     <ng-container matColumnDef="location">
         <th *matHeaderCellDef mat-header-cell>Нахождение</th>
         <td (click)="pick(column.equipment.id)" *matCellDef="let column" mat-cell>

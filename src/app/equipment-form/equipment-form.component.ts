@@ -6,6 +6,7 @@ import {Profile, ProfileService} from "../service/profile.service";
 import {GlobalService} from "../service/global.service";
 import {EquipmentService} from "../service/equipment.service";
 import {RequestLocation} from "../service/location.service";
+import {Company, CompanyService} from "../service/company.service";
 
 @Component({
     selector: 'app-equipment-form',
@@ -14,16 +15,18 @@ import {RequestLocation} from "../service/location.service";
 })
 export class EquipmentFormComponent implements OnInit {
     changed = true
-    hideDate=false
+    updateMode = false
     head = "Добавить оборудование"
     equipmentForm: FormGroup
     profiles: Profile[] = []
+    companies: Company[] = []
     date = new FormControl(
         new Date(
             new Date().getFullYear(),
             new Date().getMonth(),
             new Date().getDate()),
         Validators.required)
+    company = new FormControl("", Validators.required)
     serialNumber = new FormControl("", [
         Validators.required,
         Validators.pattern("[0-9a-zA-Z]+"),
@@ -34,11 +37,13 @@ export class EquipmentFormComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private profileService: ProfileService,
                 private equipmentService: EquipmentService,
+                private companyService: CompanyService,
                 private globalService: GlobalService,
                 @Inject(MAT_DIALOG_DATA) private data: any) {
         this.equipmentForm = this.formBuilder.group({
             id: 0,
             date: this.date,
+            company: this.company,
             serialNumber: this.serialNumber,
             profile: this.profile
         })
@@ -48,13 +53,17 @@ export class EquipmentFormComponent implements OnInit {
         this.profileService.getAll().pipe(first()).subscribe((value: any) => {
             this.profiles = value
         })
+        this.companyService.getAll().pipe(first()).subscribe((value: any) => {
+            this.companies = value
+        })
         if (this.data.update != null) {
             this.changed = false
             this.head = "Изменить оборудование"
-            this.hideDate=true
+            this.updateMode = true
             this.equipmentForm.setValue({
                 id: this.data.update.id,
                 date: this.date,
+                company: this.company,
                 serialNumber: this.data.update.serialNumber,
                 profile: this.data.update.profile.id
             })
@@ -89,12 +98,15 @@ export class EquipmentFormComponent implements OnInit {
             date: new Date(value.date).getTime() / 1000,
             where: this.data.thisLocation.partition,
             inDepartment: false,
+            company: value.company,
             toDepartment: toDepartment,
             toEmployee: toEmployee,
-            toContract: toContract
+            toContract: toContract,
+            transferType: "",
+            price: ""
         }]
         this.equipmentService.create(
-            value.date, value.serialNumber, value.profile, requestLocation
+            value.date, value.company, value.serialNumber, value.profile, requestLocation
         ).pipe(first()).subscribe({
             next: _ => {
                 this.globalService.msg("ОК")

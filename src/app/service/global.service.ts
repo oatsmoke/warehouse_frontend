@@ -7,9 +7,8 @@ import {Contract} from "./contract.service";
 @Injectable({
     providedIn: 'root'
 })
-
 export class GlobalService {
-    path = "home"
+    API_URL = "http://localhost:8081"
 
     constructor(private snackBar: MatSnackBar,
                 private dialog: MatDialog) {
@@ -19,7 +18,7 @@ export class GlobalService {
         this.snackBar.open(str, "", {duration: 3000})
     }
 
-    searchContract(input: FormControl, contracts: Contract[]): number{
+    searchContract(input: FormControl, contracts: Contract[]): number {
         let contractId = 0
         for (let contract of contracts) {
             if (contract.number == input.value) {

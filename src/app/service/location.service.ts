@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {GlobalService} from "./global.service";
 
 export interface RequestLocation {
     equipmentId: number
@@ -7,9 +8,12 @@ export interface RequestLocation {
     date: number
     where: string
     inDepartment: boolean
+    company: number
     toDepartment: number
     toEmployee: number
     toContract: number
+    transferType: string
+    price: string
 }
 
 export interface ThisLocation {
@@ -28,18 +32,19 @@ export interface LocationEquipment {
 })
 export class LocationService {
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient,
+                private globalService: GlobalService) {
     }
 
     transferTo(request: RequestLocation[]) {
-        return this.httpClient.post<any>("http://localhost:2020/api/location/transferTo", request)
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/location/transferTo", request)
     }
 
     getHistory(id: number) {
-        return this.httpClient.post<any>("http://localhost:2020/api/location/getHistory", {equipment: {id}})
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/location/getHistory", {equipment: {id}})
     }
 
     delete(id: number) {
-        return this.httpClient.post<any>("http://localhost:2020/api/location/delete", {id});
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/location/delete", {id});
     }
 }

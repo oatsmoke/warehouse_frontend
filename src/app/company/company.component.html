@@ -1,11 +1,11 @@
 <mat-toolbar>
-    Категории
-    <button (click)="dialogCreateCategory()" mat-icon-button>
-        <mat-icon title="Добавить категорию">add_circle</mat-icon>
+    Компании
+    <button (click)="dialogCreateCompany()" mat-icon-button>
+        <mat-icon title="Добавить компанию">add_circle</mat-icon>
     </button>
 </mat-toolbar>
-<app-no-content *ngIf="!categories"></app-no-content>
-<table *ngIf="categories" [dataSource]="categories" mat-table>
+<app-no-content *ngIf="!companies"></app-no-content>
+<table *ngIf="companies" [dataSource]="companies" mat-table>
     <ng-container matColumnDef="title">
         <th *matHeaderCellDef mat-header-cell>Название</th>
         <td *matCellDef="let column" mat-cell>{{column.title}}</td>
@@ -17,10 +17,10 @@
                 <mat-icon>expand_circle_down</mat-icon>
             </button>
             <mat-menu #options="matMenu">
-                <button (click)="dialogUpdateCategory(column.id)" mat-menu-item>
+                <button (click)="dialogUpdateCompany(column.id)" mat-menu-item>
                     Изменить
                 </button>
-                <button (click)="dialogDeleteCategory(column.id)" mat-menu-item>
+                <button (click)="dialogDeleteCompany(column.id)" mat-menu-item>
                     Удалить
                 </button>
             </mat-menu>

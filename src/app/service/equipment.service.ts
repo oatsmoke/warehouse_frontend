@@ -5,6 +5,8 @@ import {Employee} from "./employee.service";
 import {Department} from "./department.service";
 import {Contract} from "./contract.service";
 import {LocationEquipment, RequestLocation} from "./location.service";
+import {GlobalService} from "./global.service";
+import {Company} from "./company.service";
 
 export interface Equipment {
     id: number
@@ -18,9 +20,12 @@ export interface ThisEquipment {
     code: string
     equipment: Equipment
     employee: Employee
+    company: Company
     toDepartment: Department
     toEmployee: Employee
     toContract: Contract
+    transferType: string
+    price: string
 }
 
 @Injectable({
@@ -28,13 +33,15 @@ export interface ThisEquipment {
 })
 export class EquipmentService {
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient,
+                private globalService: GlobalService) {
     }
 
-    create(date: string, serialNumber: string, profile: number, requestLocation: RequestLocation[]) {
-        return this.httpClient.post<any>("http://localhost:2020/api/equipment/create", {
+    create(date: string, company: number, serialNumber: string, profile: number, requestLocation: RequestLocation[]) {
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/equipment/create", {
                 location: {
                     date: new Date(date).getTime() / 1000,
+                    company: {id: company},
                     equipment:
                         {
                             serialNumber: serialNumber,
@@ -50,23 +57,23 @@ export class EquipmentService {
     }
 
     getById(id: number) {
-        return this.httpClient.post<any>("http://localhost:2020/api/equipment/getById", {id})
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/equipment/getById", {id})
     }
 
     getByIds(ids: []) {
-        return this.httpClient.post<any>("http://localhost:2020/api/equipment/getByIds", {ids})
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/equipment/getByIds", {ids})
     }
 
     getByLocation(location: LocationEquipment) {
-        return this.httpClient.post<any>("http://localhost:2020/api/equipment/getByLocation", location)
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/equipment/getByLocation", location)
     }
 
     getAll() {
-        return this.httpClient.get<any>("http://localhost:2020/api/equipment/getAll")
+        return this.httpClient.get<any>(this.globalService.API_URL + "/api/equipment/getAll")
     }
 
     update(id: number, serialNumber: string, profile: number) {
-        return this.httpClient.post<any>("http://localhost:2020/api/equipment/update", {
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/equipment/update", {
             id,
             serialNumber,
             profile: {id: profile}
@@ -74,6 +81,6 @@ export class EquipmentService {
     }
 
     delete(id: number) {
-        return this.httpClient.post<any>("http://localhost:2020/api/equipment/delete", {id})
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/equipment/delete", {id})
     }
 }

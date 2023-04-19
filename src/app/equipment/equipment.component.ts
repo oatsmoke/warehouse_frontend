@@ -20,7 +20,7 @@ export class EquipmentComponent implements OnInit {
     title = ""
     thisLocation!: ThisLocation
     equipments: ThisEquipment[] = []
-    columns: string[] = ["profile", "serialNumber", "category", "location", "control"]
+    columns: string[] = ["profile", "serialNumber", "category", "company", "location", "control"]
     pickEquipments: number[] = []
     isDepartment = false
     isContract = false

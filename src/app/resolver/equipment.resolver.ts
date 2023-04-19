@@ -14,7 +14,6 @@ export class EquipmentResolver implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-        route.url.map(value => this.globalService.path = value.path)
         let locationEquipment: LocationEquipment = {
             toDepartment: {id: 0},
             toEmployee: {id: 0},

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Category} from "./category.service";
+import {GlobalService} from "./global.service";
 
 export interface Profile {
     id: number
@@ -13,23 +14,27 @@ export interface Profile {
 })
 export class ProfileService {
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient,
+                private globalService: GlobalService) {
     }
 
     create(title: string, category: number) {
-        return this.httpClient.post<any>("http://localhost:2020/api/profile/create", {title, category: {id: category}})
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/profile/create", {
+            title,
+            category: {id: category}
+        })
     }
 
     getById(id: number) {
-        return this.httpClient.post<any>("http://localhost:2020/api/profile/getById", {id});
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/profile/getById", {id});
     }
 
     getAll() {
-        return this.httpClient.get<any>("http://localhost:2020/api/profile/getAll");
+        return this.httpClient.get<any>(this.globalService.API_URL + "/api/profile/getAll");
     }
 
     update(id: number, title: string, category: number) {
-        return this.httpClient.post<any>("http://localhost:2020/api/profile/update", {
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/profile/update", {
             id,
             title,
             category: {id: category}
@@ -37,6 +42,6 @@ export class ProfileService {
     }
 
     delete(id: number) {
-        return this.httpClient.post<any>("http://localhost:2020/api/profile/delete", {id});
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/profile/delete", {id});
     }
 }
