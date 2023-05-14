@@ -8,11 +8,19 @@ import {ThisEquipment} from "../service/equipment.service";
 })
 export class HistoryComponent implements OnInit {
     @Input() location!: ThisEquipment
+    code = ""
 
     constructor() {
     }
 
     ngOnInit(): void {
+        this.code = this.location.code
+        if (this.location.code.indexOf("TRANSFER") != -1) {
+            this.code = this.location.code.replace("TRANSFER_", "")
+        }
+        if (this.location.code.indexOf("REPLACE") != -1) {
+            this.code = this.location.code.replace("REPLACE_", "")
+        }
     }
 
     transferTypeConvert(value: string): string {

@@ -58,6 +58,7 @@ import {
     DialogEquipmentDelete,
     DialogEquipmentForm,
     DialogEquipmentHistoryForm,
+    DialogEquipmentReplaceForm,
     DialogEquipmentTransferForm,
     EquipmentComponent
 } from './equipment/equipment.component';
@@ -80,7 +81,8 @@ import {ProfileResolver} from "./resolver/profile.resolver";
 import {GetUserResolver} from "./resolver/get-user.resolver";
 import {CompanyComponent, DialogCompanyDelete, DialogCompanyForm} from './company/company.component';
 import {CompanyResolver} from "./resolver/company.resolver";
-import { CompanyFormComponent } from './company-form/company-form.component';
+import {CompanyFormComponent} from './company-form/company-form.component';
+import { EquipmentReplaceFormComponent } from './equipment-replace-form/equipment-replace-form.component';
 
 const mainRoutes: Routes = [
     {path: "home", component: HomeComponent},
@@ -122,6 +124,7 @@ const appRoutes: Routes = [
         DialogEquipmentForm,
         DialogEquipmentDelete,
         DialogEquipmentTransferForm,
+        DialogEquipmentReplaceForm,
         DialogDepartmentStaffForm,
         DialogEquipmentHistoryForm,
         DialogContractCreateForm,
@@ -152,7 +155,8 @@ const appRoutes: Routes = [
         ContractInputFormComponent,
         ShellComponent,
         CompanyComponent,
-        CompanyFormComponent
+        CompanyFormComponent,
+        EquipmentReplaceFormComponent
     ],
     imports: [
         BrowserModule,

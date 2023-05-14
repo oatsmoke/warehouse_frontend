@@ -193,8 +193,8 @@ export class EquipmentTransferFormComponent implements OnInit {
     }
 
     ok() {
-        let requestLocation: RequestLocation[] = []
         const value = this.transferForm.value
+        let requestLocation: RequestLocation[] = []
         for (let e of this.equipments) {
             let thisLocation: string
             if (this.data.thisLocation.id == 0) {
@@ -212,9 +212,10 @@ export class EquipmentTransferFormComponent implements OnInit {
                 toDepartment = value.toDepartment
             }
             let request: RequestLocation = {
-                equipmentId: e.equipment.id,
-                thisLocation: thisLocation,
                 date: new Date(value.date).getTime() / 1000,
+                equipmentId: e.equipment.id,
+                way: "transfer",
+                thisLocation: thisLocation,
                 where: value.where,
                 inDepartment: value.inDepartment,
                 company: e.company.id,
@@ -226,7 +227,6 @@ export class EquipmentTransferFormComponent implements OnInit {
             }
             requestLocation.push(request)
         }
-        console.log(requestLocation)
         this.locationService.transferTo(requestLocation).pipe(first()).subscribe({
             next: _ => {
                 this.globalService.msg("ОК")

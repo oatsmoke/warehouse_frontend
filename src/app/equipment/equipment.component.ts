@@ -25,6 +25,7 @@ export class EquipmentComponent implements OnInit {
     isDepartment = false
     isContract = false
 
+
     constructor(private activatedRoute: ActivatedRoute,
                 private dialog: MatDialog,
                 private globalService: GlobalService,
@@ -111,6 +112,17 @@ export class EquipmentComponent implements OnInit {
 
     dialogEquipmentTransfer() {
         this.dialog.open(DialogEquipmentTransferForm, {
+            data: {
+                pickEquipments: this.pickEquipments,
+                thisLocation: this.thisLocation
+            }
+        }).afterClosed().pipe(first()).subscribe(_ => {
+            this.getEquipments()
+        })
+    }
+
+    dialogEquipmentReplace() {
+        this.dialog.open(DialogEquipmentReplaceForm, {
             data: {
                 pickEquipments: this.pickEquipments,
                 thisLocation: this.thisLocation
@@ -212,6 +224,12 @@ export class DialogEquipmentHistoryForm {
     selector: 'dialog-equipment-transfer-form', templateUrl: './dialog-equipment-transfer-form.html'
 })
 export class DialogEquipmentTransferForm {
+}
+
+@Component({
+    selector: 'dialog-equipment-replace-form', templateUrl: './dialog-equipment-replace-form.html'
+})
+export class DialogEquipmentReplaceForm {
 }
 
 @Component({

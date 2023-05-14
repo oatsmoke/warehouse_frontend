@@ -3,9 +3,10 @@ import {HttpClient} from "@angular/common/http";
 import {GlobalService} from "./global.service";
 
 export interface RequestLocation {
-    equipmentId: number
-    thisLocation: string
     date: number
+    equipmentId: number
+    way: string
+    thisLocation: string
     where: string
     inDepartment: boolean
     company: number

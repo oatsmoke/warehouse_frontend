@@ -1,8 +1,8 @@
 {{location.date * 1000|date:'dd.MM.YYYY'}}
 {{location.employee.name}}
 <br>
-<div [ngSwitch]="location.code">
-    <ng-template ngSwitchCase="STORAGE_ADD">
+<div [ngSwitch]="code">
+    <ng-template ngSwitchCase="ADD_TO_STORAGE">
         Добавлено на склад
     </ng-template>
     <ng-template ngSwitchCase="STORAGE_TO_DEPARTMENT">

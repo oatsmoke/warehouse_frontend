@@ -93,9 +93,10 @@ export class EquipmentFormComponent implements OnInit {
         }
         const value = this.equipmentForm.value
         let requestLocation: RequestLocation[] = [{
-            equipmentId: 0,
-            thisLocation: "storage",
             date: new Date(value.date).getTime() / 1000,
+            equipmentId: 0,
+            way: "transfer",
+            thisLocation: "storage",
             where: this.data.thisLocation.partition,
             inDepartment: false,
             company: value.company,

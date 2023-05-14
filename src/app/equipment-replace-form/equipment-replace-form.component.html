@@ -1,0 +1,48 @@
+<mat-toolbar color="primary">
+    Заменить оборудование
+    <div class="rightPositionToolBar">
+        <button (click)="close()" mat-icon-button tabindex="-1" title="Закрыть">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+<form [formGroup]="replaceForm">
+    <mat-chip-list>
+        <mat-chip *ngIf="equipmentFromContract">
+            {{equipmentFromContract.equipment.profile.title}}({{equipmentFromContract.equipment.serialNumber}})
+        </mat-chip>
+    </mat-chip-list>
+    <mat-form-field>
+        <mat-label>Дата</mat-label>
+        <input [formControl]="date" [matDatepicker]="picker" matInput>
+        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="date.invalid">{{inputErrorMessage(date)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Отдел</mat-label>
+        <mat-select (selectionChange)="fromDepartment()" [formControl]="department">
+            <mat-option *ngFor="let department of departments"
+                        [value]="department.id">{{department.title}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="department.invalid">{{inputErrorMessage(department)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Серийный номер</mat-label>
+        <input (ngModelChange)="searchEquipment()" [formControl]="serialNumber" [matAutocomplete]="auto" matInput
+               type="text">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let equipment of filteredEquipments|async"
+                        [value]="equipment.equipment.serialNumber">
+                {{equipment.equipment.profile.title}}({{equipment.equipment.serialNumber}})
+            </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="serialNumber.invalid">{{inputErrorMessage(serialNumber)}}</mat-error>
+    </mat-form-field>
+    <br>
+    <button (click)="ok()" [disabled]="replaceForm.invalid" mat-stroked-button>
+        OK
+    </button>
+</form>

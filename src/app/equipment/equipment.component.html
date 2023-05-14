@@ -12,7 +12,12 @@
     <button (click)="dialogDeleteContract()" *ngIf="isContract" mat-icon-button>
         <mat-icon title="Удалить договор">delete_forever</mat-icon>
     </button>
-    <button (click)="dialogEquipmentTransfer()" *ngIf="pickEquipments[0]" mat-button>Передать</button>
+    <button (click)="dialogEquipmentTransfer()" *ngIf="pickEquipments[0]" mat-button>
+        Передать
+    </button>
+    <button (click)="dialogEquipmentReplace()" *ngIf="pickEquipments[0]&&!pickEquipments[1]&&isContract" mat-button>
+        Заменить
+    </button>
 </mat-toolbar>
 <app-no-content *ngIf="!equipments"></app-no-content>
 <table *ngIf="equipments" [dataSource]="equipments" mat-table>
