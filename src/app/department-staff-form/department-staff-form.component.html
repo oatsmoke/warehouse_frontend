@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-    {{head}}
+    {{ head }}
     <div class="rightPositionToolBar">
         <button (click)="close()" mat-icon-button tabindex="-1" title="Закрыть">
             <mat-icon>cancel</mat-icon>
@@ -9,22 +9,23 @@
 <form [formGroup]="employeeAddForm">
     <mat-chip-list>
         <mat-chip (removed)="removeEmployee(employee.id)" *ngFor="let employee of departmentEmployees">
-            {{employee.name}}
-            <button matChipRemove>
+            {{ employee.name }}
+            <button *ngIf="data.haveAccess" matChipRemove>
                 <mat-icon>remove_circle</mat-icon>
             </button>
         </mat-chip>
     </mat-chip-list>
-    <mat-form-field>
+    <mat-form-field *ngIf="data.haveAccess">
         <mat-label>Сотрудник</mat-label>
         <mat-select [formControl]="employee">
             <mat-option *ngFor="let employee of employees"
-                        [value]="employee.id">{{employee.name}}</mat-option>
+                        [value]="employee.id">{{ employee.name }}
+            </mat-option>
         </mat-select>
-        <mat-error *ngIf="employee.invalid">{{inputErrorMessage(employee)}}</mat-error>
+        <mat-error *ngIf="employee.invalid">{{ inputErrorMessage(employee) }}</mat-error>
     </mat-form-field>
     <br>
-    <button (click)="addEmployee()" [disabled]="employeeAddForm.invalid" mat-stroked-button>
+    <button (click)="addEmployee()" *ngIf="data.haveAccess" [disabled]="employeeAddForm.invalid" mat-stroked-button>
         Добавить
     </button>
 </form>

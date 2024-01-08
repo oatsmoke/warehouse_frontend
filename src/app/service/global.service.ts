@@ -3,12 +3,14 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialog} from "@angular/material/dialog";
 import {FormControl} from "@angular/forms";
 import {Contract} from "./contract.service";
+import {Employee} from "./employee.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class GlobalService {
     API_URL = "http://localhost:8081"
+    employee!: Employee
 
     constructor(private snackBar: MatSnackBar,
                 private dialog: MatDialog) {

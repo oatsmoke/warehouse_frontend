@@ -24,11 +24,11 @@ export class EquipmentHistoryFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.equipmentService.getById(this.data).pipe(first()).subscribe(value => {
+        this.equipmentService.getById(this.data.id).pipe(first()).subscribe(value => {
             this.equipment = value
             this.head = this.equipment.equipment.profile.title + " | " + this.equipment.equipment.serialNumber + " | " + this.equipment.company.title
         })
-        this.locationService.getHistory(this.data).pipe(first()).subscribe(value => {
+        this.locationService.getHistory(this.data.id).pipe(first()).subscribe(value => {
             this.history = value
             this.first = this.history.shift()
             if (this.history.length == 0) {

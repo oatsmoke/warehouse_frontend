@@ -107,6 +107,18 @@ export class EmployeeComponent implements OnInit {
             }
         })
     }
+
+    changeRoleEmployee(id: number, role: string) {
+        this.employeeService.changeRole(id, role).pipe(first()).subscribe({
+            next: _ => {
+                this.globalService.msg("Роль изменена!")
+                this.getEmployees()
+            },
+            error: error => {
+                this.globalService.msg(error.error.message)
+            }
+        })
+    }
 }
 
 @Component({

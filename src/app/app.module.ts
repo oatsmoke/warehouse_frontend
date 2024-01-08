@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
@@ -78,37 +78,69 @@ import {PartitionResolver} from "./resolver/partition.resolver";
 import {EquipmentResolver} from "./resolver/equipment.resolver";
 import {CategoryResolver} from "./resolver/category.resolver";
 import {ProfileResolver} from "./resolver/profile.resolver";
-import {GetUserResolver} from "./resolver/get-user.resolver";
 import {CompanyComponent, DialogCompanyDelete, DialogCompanyForm} from './company/company.component';
 import {CompanyResolver} from "./resolver/company.resolver";
 import {CompanyFormComponent} from './company-form/company-form.component';
-import { EquipmentReplaceFormComponent } from './equipment-replace-form/equipment-replace-form.component';
+import {EquipmentReplaceFormComponent} from './equipment-replace-form/equipment-replace-form.component';
+import {AccessGuard} from "./access.guard";
+import {AppInitService} from "./service/app-init.service";
 
 const mainRoutes: Routes = [
+
     {path: "home", component: HomeComponent},
     {
         path: ":partition/:id",
         component: EquipmentComponent,
         resolve: {partitionResolver: PartitionResolver, equipmentResolver: EquipmentResolver}
     },
-    {path: "employee", component: EmployeeComponent, resolve: {employeeResolver: EmployeeResolver}},
-    {path: "department", component: DepartmentComponent, resolve: {departmentResolver: DepartmentResolver}},
-    {path: "category", component: CategoryComponent, resolve: {categoryResolver: CategoryResolver}},
-    {path: "profile", component: ProfileComponent, resolve: {profileResolver: ProfileResolver}},
-    {path: "company", component: CompanyComponent, resolve: {companyResolver: CompanyResolver}},
+    {
+        path: "employee",
+        component: EmployeeComponent,
+        resolve: {employeeResolver: EmployeeResolver},
+        canActivate: [AccessGuard]
+    },
+    {
+        path: "department",
+        component: DepartmentComponent,
+        resolve: {departmentResolver: DepartmentResolver},
+        canActivate: [AccessGuard]
+    },
+    {
+        path: "category",
+        component: CategoryComponent,
+        resolve: {categoryResolver: CategoryResolver},
+        canActivate: [AccessGuard]
+    },
+    {
+        path: "profile",
+        component: ProfileComponent,
+        resolve: {profileResolver: ProfileResolver},
+        canActivate: [AccessGuard]
+    },
+    {
+        path: "company",
+        component: CompanyComponent,
+        resolve: {companyResolver: CompanyResolver},
+        canActivate: [AccessGuard]
+    },
     {path: "**", redirectTo: "home"}
 ]
 
 const appRoutes: Routes = [
-    {path: 'no-access', component: AuthFormComponent},
+    {path: "no-access", component: AuthFormComponent},
     {
-        path: '',
+        path: "",
         component: MainComponent,
-        children: mainRoutes,
-        resolve: {getUserResolver: GetUserResolver}
+        children: mainRoutes
     },
-    {path: '**', redirectTo: ''}
+    {path: "**", redirectTo: ""}
 ]
+
+export function initializeApp(appInitService: AppInitService) {
+    return () => {
+        return appInitService.Init();
+    }
+}
 
 @NgModule({
     declarations: [
@@ -201,6 +233,7 @@ const appRoutes: Routes = [
         HttpClientModule
     ],
     providers: [
+        {provide: APP_INITIALIZER, useFactory: initializeApp, deps: [AppInitService], multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
         {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
         {provide: MAT_DATE_LOCALE, useValue: {useUtc: true}}

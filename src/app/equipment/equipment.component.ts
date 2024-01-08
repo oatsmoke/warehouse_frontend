@@ -61,6 +61,7 @@ export class EquipmentComponent implements OnInit {
                 this.contract = value.partitionResolver
                 this.title = this.contract.number + "(" + this.contract.address + ")"
                 this.isContract = true
+                this.isDepartment = false
             }
             this.pickEquipments = []
             this.equipments = value.equipmentResolver
@@ -133,13 +134,23 @@ export class EquipmentComponent implements OnInit {
     }
 
     dialogEquipmentHistory(id: number) {
-        this.dialog.open(DialogEquipmentHistoryForm, {data: id}).afterClosed().pipe(first()).subscribe(_ => {
+        this.dialog.open(DialogEquipmentHistoryForm, {
+            data: {
+                id,
+                haveAccess: this.haveAccessToDepartment()
+            }
+        }).afterClosed().pipe(first()).subscribe(_ => {
             this.getEquipments()
         })
     }
 
     dialogDepartmentStaff() {
-        this.dialog.open(DialogDepartmentStaffForm, {data: this.thisLocation}).afterClosed().pipe(first()).subscribe(_ => {
+        this.dialog.open(DialogDepartmentStaffForm, {data:
+                {
+                    locationId: this.thisLocation,
+                    haveAccess: this.haveAccessToDepartment()
+                }
+        }).afterClosed().pipe(first()).subscribe(_ => {
             this.getEquipments()
         })
     }
@@ -199,18 +210,30 @@ export class EquipmentComponent implements OnInit {
     }
 
     pick(id: number) {
-        const element = document.getElementById("row" + id)
-        if (element) {
-            for (let e in this.pickEquipments) {
-                if (this.pickEquipments[e] == id) {
-                    this.pickEquipments.splice(Number(e), 1)
-                    element.classList.remove("select")
-                    return
+        if (this.haveAccessToDepartment()) {
+            const element = document.getElementById("row" + id)
+            if (element) {
+                for (let e in this.pickEquipments) {
+                    if (this.pickEquipments[e] == id) {
+                        this.pickEquipments.splice(Number(e), 1)
+                        element.classList.remove("select")
+                        return
+                    }
                 }
+                this.pickEquipments.push(id)
+                element.classList.add("select")
             }
-            this.pickEquipments.push(id)
-            element.classList.add("select")
         }
+    }
+
+    haveAccessToDepartment() {
+        return this.globalService.employee.role == "ADMIN" ||
+            (this.globalService.employee.role == "CONTROL" &&
+                (this.thisLocation.id == this.globalService.employee.department.id || this.thisLocation.id == 0))
+    }
+
+    haveAccessControl() {
+        return this.globalService.employee.role == "ADMIN" || this.globalService.employee.role == "CONTROL"
     }
 }
 

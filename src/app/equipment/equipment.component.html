@@ -1,15 +1,16 @@
 <mat-toolbar>
-    {{title}}
-    <button (click)="dialogCreateEquipment()" mat-icon-button>
+    {{ title }}
+    <button (click)="dialogCreateEquipment()"
+            *ngIf="(!isContract&&haveAccessToDepartment())||(isContract&&haveAccessControl())" mat-icon-button>
         <mat-icon title="Добавить оборудование">add_circle</mat-icon>
     </button>
     <button (click)="dialogDepartmentStaff()" *ngIf="isDepartment" mat-icon-button>
         <mat-icon title="Сотрудники отдела">supervised_user_circle</mat-icon>
     </button>
-    <button (click)="dialogUpdateContract()" *ngIf="isContract" mat-icon-button>
+    <button (click)="dialogUpdateContract()" *ngIf="isContract&&haveAccessControl()" mat-icon-button>
         <mat-icon title="Изменить договор">edit</mat-icon>
     </button>
-    <button (click)="dialogDeleteContract()" *ngIf="isContract" mat-icon-button>
+    <button (click)="dialogDeleteContract()" *ngIf="isContract&&haveAccessControl()" mat-icon-button>
         <mat-icon title="Удалить договор">delete_forever</mat-icon>
     </button>
     <button (click)="dialogEquipmentTransfer()" *ngIf="pickEquipments[0]" mat-button>
@@ -24,22 +25,26 @@
     <ng-container matColumnDef="profile">
         <th *matHeaderCellDef mat-header-cell>Модель</th>
         <td (click)="pick(column.equipment.id)" *matCellDef="let column" mat-cell>
-            {{column.equipment.profile.title}}</td>
+            {{ column.equipment.profile.title }}
+        </td>
     </ng-container>
     <ng-container matColumnDef="serialNumber">
         <th *matHeaderCellDef mat-header-cell>Серийный номер</th>
         <td (click)="pick(column.equipment.id)" *matCellDef="let column" mat-cell>
-            {{column.equipment.serialNumber}}</td>
+            {{ column.equipment.serialNumber }}
+        </td>
     </ng-container>
     <ng-container matColumnDef="category">
         <th *matHeaderCellDef mat-header-cell>Категория</th>
         <td (click)="pick(column.equipment.id)" *matCellDef="let column" mat-cell>
-            {{column.equipment.profile.category.title}}</td>
+            {{ column.equipment.profile.category.title }}
+        </td>
     </ng-container>
     <ng-container matColumnDef="company">
         <th *matHeaderCellDef mat-header-cell>Компания</th>
         <td (click)="pick(column.equipment.id)" *matCellDef="let column" mat-cell>
-            {{column.company.title}}</td>
+            {{ column.company.title }}
+        </td>
     </ng-container>
     <ng-container matColumnDef="location">
         <th *matHeaderCellDef mat-header-cell>Нахождение</th>
@@ -49,11 +54,11 @@
                     Склад
                 </ng-template>
                 <ng-template ngSwitchCase="Абонент">
-                    {{column.toContract.number}}
+                    {{ column.toContract.number }}
                 </ng-template>
                 <ng-template ngSwitchDefault>
-                    <div *ngIf="column.toDepartment.title">{{column.toDepartment.title}}</div>
-                    <div *ngIf="column.toEmployee.name">{{column.toEmployee.name}}</div>
+                    <div *ngIf="column.toDepartment.title">{{ column.toDepartment.title }}</div>
+                    <div *ngIf="column.toEmployee.name">{{ column.toEmployee.name }}</div>
                 </ng-template>
             </div>
         </td>
@@ -68,10 +73,12 @@
                 <button (click)="dialogEquipmentHistory(column.equipment.id)" mat-menu-item>
                     История
                 </button>
-                <button (click)="dialogUpdateEquipment(column.equipment.id)" mat-menu-item>
+                <button (click)="dialogUpdateEquipment(column.equipment.id)" *ngIf="haveAccessToDepartment()"
+                        mat-menu-item>
                     Изменить
                 </button>
-                <button (click)="dialogDeleteEquipment(column.equipment.id)" mat-menu-item>
+                <button (click)="dialogDeleteEquipment(column.equipment.id)" *ngIf="haveAccessToDepartment()"
+                        mat-menu-item>
                     Удалить
                 </button>
             </mat-menu>

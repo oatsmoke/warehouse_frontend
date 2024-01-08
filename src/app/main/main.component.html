@@ -5,7 +5,7 @@
     <button (click)="getEmployees()" [matMenuTriggerFor]="menuEmployee" color="primary" mat-flat-button>Сотрудники
     </button>
     <button [matMenuTriggerFor]="menuContract" color="primary" mat-flat-button>Абоненты</button>
-    <button [matMenuTriggerFor]="menuControl" color="primary" mat-flat-button>Управление</button>
+    <button [matMenuTriggerFor]="menuControl" color="primary" mat-flat-button *ngIf="haveAccessAdmin()">Управление</button>
     <mat-menu #menuControl="matMenu">
         <button mat-menu-item routerLink="employee">Сотрудники</button>
         <button mat-menu-item routerLink="department">Отделы</button>

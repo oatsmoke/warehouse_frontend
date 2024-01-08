@@ -23,14 +23,14 @@ export class DepartmentStaffFormComponent implements OnInit {
                 private departmentService: DepartmentService,
                 private employeeService: EmployeeService,
                 private globalService: GlobalService,
-                @Inject(MAT_DIALOG_DATA) private data: any) {
+                @Inject(MAT_DIALOG_DATA) public data: any) {
         this.employeeAddForm = this.formBuilder.group({
             employee: this.employee
         })
     }
 
     ngOnInit(): void {
-        this.departmentService.getById(Number(this.data.id)).pipe(first()).subscribe(value => {
+        this.departmentService.getById(Number(this.data.locationId.id)).pipe(first()).subscribe(value => {
             this.department = value
             if (this.department.title) {
                 this.head = this.department.title
@@ -47,13 +47,13 @@ export class DepartmentStaffFormComponent implements OnInit {
     }
 
     getByDepartmentEmployees() {
-        this.employeeService.getByDepartment([], Number(this.data.id)).pipe(first()).subscribe(value => {
+        this.employeeService.getByDepartment([], Number(this.data.locationId.id)).pipe(first()).subscribe(value => {
             this.departmentEmployees = value
         })
     }
 
     addEmployee() {
-        this.employeeService.addToDepartment(this.employee.value, Number(this.data.id)).pipe(first()).subscribe({
+        this.employeeService.addToDepartment(this.employee.value, Number(this.data.locationId.id)).pipe(first()).subscribe({
             next: _ => {
                 this.globalService.msg("ОК")
                 this.employee.setValue("")
@@ -67,7 +67,7 @@ export class DepartmentStaffFormComponent implements OnInit {
     }
 
     removeEmployee(id: number) {
-        this.employeeService.removeFromDepartment(Number(this.data.id), id).subscribe({
+        this.employeeService.removeFromDepartment(Number(this.data.locationId.id), id).subscribe({
             next: _ => {
                 this.globalService.msg("ОК")
                 this.getByDepartmentEmployees()

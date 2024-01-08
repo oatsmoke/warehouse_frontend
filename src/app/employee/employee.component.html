@@ -45,8 +45,22 @@
                 <button (click)="updateEmployee(column.id)" mat-menu-item>
                     Изменить
                 </button>
+                <button [matMenuTriggerFor]="q" mat-menu-item>
+                    Роль
+                </button>
                 <button (click)="deleteEmployee(column.id)" mat-menu-item>
                     Удалить
+                </button>
+            </mat-menu>
+            <mat-menu #q="matMenu">
+                <button (click)="changeRoleEmployee(column.id,'ADMIN')" [disabled]="column.role=='ADMIN'" mat-menu-item>
+                    Администратор
+                </button>
+                <button (click)="changeRoleEmployee(column.id,'CONTROL')" [disabled]="column.role=='CONTROL'" mat-menu-item>
+                    Управляющий
+                </button>
+                <button (click)="changeRoleEmployee(column.id,'USER')" [disabled]="column.role=='USER'" mat-menu-item>
+                    Пользователь
                 </button>
             </mat-menu>
         </td>

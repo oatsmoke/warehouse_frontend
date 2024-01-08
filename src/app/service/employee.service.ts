@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {GlobalService} from "./global.service";
+import {Department} from "./department.service";
 
 export interface Employee {
     id: number
@@ -11,6 +12,8 @@ export interface Employee {
     authorizationDate: Date
     activate: boolean
     hidden: boolean
+    department: Department
+    role: string
 }
 
 @Injectable({
@@ -58,7 +61,7 @@ export class EmployeeService {
     }
 
     removeFromDepartment(idDepartment: number, idEmployee: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/removeFromDepartment", [idDepartment, idEmployee]);
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/removeFromDepartment", [idDepartment, idEmployee])
     }
 
     update(id: number, name: string, phone: string, email: string) {
@@ -66,18 +69,22 @@ export class EmployeeService {
     }
 
     delete(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/delete", {id});
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/delete", {id})
     }
 
     activate(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/activate", {id});
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/activate", {id})
     }
 
     deactivate(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/deactivate", {id});
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/deactivate", {id})
     }
 
     resetPassword(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/resetPassword", {id});
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/resetPassword", {id})
+    }
+
+    changeRole(id: number, role: string) {
+        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/changeRole", {id, role})
     }
 }

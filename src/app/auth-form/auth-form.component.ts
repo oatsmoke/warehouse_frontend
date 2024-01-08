@@ -38,9 +38,10 @@ export class AuthFormComponent implements OnInit {
     submit() {
         const value = this.authForm.value
         this.authService.singIn(value.login, value.password).pipe(first()).subscribe({
-            next: _ => {
+            next: value => {
+                this.globalService.employee = value
                 this.globalService.msg("ОК")
-                this.router.navigate(["/home"]).then()
+                this.router.navigate(["home"]).then()
             },
             error: error => {
                 this.globalService.msg(error.error.message)

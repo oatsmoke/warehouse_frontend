@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {first} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
-import {FormControl} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {Employee, EmployeeService} from "../service/employee.service";
 import {Department, DepartmentService} from "../service/department.service";
@@ -12,10 +11,9 @@ import {GlobalService} from "../service/global.service";
 })
 
 export class MainComponent implements OnInit {
-    employee!: Employee
+    employee: Employee = this.globalService.employee
     departments: Department[] = []
     employees: Employee[] = []
-    number = new FormControl("")
 
     constructor(private activatedRoute: ActivatedRoute,
                 private departmentService: DepartmentService,
@@ -25,14 +23,6 @@ export class MainComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.activatedRoute.data.pipe(first()).subscribe({
-            next: (value: any) => {
-                this.employee = value.getUserResolver
-            },
-            error: error => {
-                this.globalService.msg(error.error.message)
-            }
-        })
     }
 
     getDepartments() {
@@ -58,6 +48,10 @@ export class MainComponent implements OnInit {
 
     dialogInputContract() {
         this.dialog.open(DialogContractInputForm)
+    }
+
+    haveAccessAdmin() {
+        return this.globalService.employee.role == "ADMIN"
     }
 }
 
