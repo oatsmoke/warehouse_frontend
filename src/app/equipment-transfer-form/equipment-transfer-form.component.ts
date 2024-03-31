@@ -223,7 +223,7 @@ export class EquipmentTransferFormComponent implements OnInit {
                 toEmployee: value.toEmployee,
                 toContract: this.contractId,
                 transferType: value.transferType,
-                price: value.price
+                price: Number(value.price)
             }
             requestLocation.push(request)
         }

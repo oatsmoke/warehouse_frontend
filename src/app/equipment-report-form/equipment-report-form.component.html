@@ -1,0 +1,121 @@
+<mat-toolbar color="primary">
+  Отчет
+  <div class="rightPositionToolBar">
+    <button (click)="close()" mat-icon-button tabindex="-1" title="Закрыть">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<mat-form-field class="picker">
+  <mat-label>Дата</mat-label>
+  <input [formControl]="date" [matDatepicker]="picker" matInput>
+  <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+  <mat-datepicker #picker (monthSelected)="setMonthAndYear($event, picker)" startView="year"></mat-datepicker>
+  <mat-error *ngIf="date.invalid">{{ inputErrorMessage(date) }}</mat-error>
+</mat-form-field>
+<table *ngIf="report">
+  <tr>
+    <td></td>
+    <th *ngFor="let category of report.categories" colspan="2">{{ category.title }}</th>
+  </tr>
+  <tr>
+    <th>Остаток</th>
+    <ng-container *ngFor="let category of report.categories">
+      <td *ngIf="report.leftover[category.id]" colspan="2">
+        <button [matMenuTriggerData]="{equipments:report.leftover[category.id]}" [matMenuTriggerFor]="menu"
+                mat-icon-button
+                tabindex="-1">
+          {{ report.leftover[category.id].length }}
+        </button>
+      </td>
+      <td *ngIf="!report.leftover[category.id]" colspan="2">0</td>
+    </ng-container>
+  </tr>
+  <tr>
+    <th>Склад</th>
+    <ng-container *ngFor="let category of report.categories">
+      <td *ngIf="report.fromStorage[category.id]">
+        <button [matMenuTriggerData]="{equipments:report.fromStorage[category.id]}" [matMenuTriggerFor]="menu"
+                mat-icon-button
+                tabindex="-1">
+          +{{ report.fromStorage[category.id].length }}
+        </button>
+      </td>
+      <td *ngIf="!report.fromStorage[category.id]">0</td>
+      <td *ngIf="report.toStorage[category.id]">
+        <button [matMenuTriggerData]="{equipments:report.toStorage[category.id]}" [matMenuTriggerFor]="menu"
+                mat-icon-button
+                tabindex="-1">
+          -{{ report.toStorage[category.id].length }}
+        </button>
+      </td>
+      <td *ngIf="!report.toStorage[category.id]">0</td>
+    </ng-container>
+  </tr>
+  <tr>
+    <th>Абоненты</th>
+    <ng-container *ngFor="let category of report.categories">
+      <td *ngIf="report.fromContract[category.id]">
+        <button [matMenuTriggerData]="{equipments:report.fromContract[category.id]}" [matMenuTriggerFor]="menu"
+                mat-icon-button
+                tabindex="-1">
+          +{{ report.fromContract[category.id].length }}
+        </button>
+      </td>
+      <td *ngIf="!report.fromContract[category.id]">0</td>
+      <td *ngIf="report.toContract[category.id]">
+        <button [matMenuTriggerData]="{equipments:report.toContract[category.id]}" [matMenuTriggerFor]="menu"
+                mat-icon-button
+                tabindex="-1">
+          -{{ report.toContract[category.id].length }}
+        </button>
+      </td>
+      <td *ngIf="!report.toContract[category.id]">0</td>
+    </ng-container>
+  </tr>
+  <ng-container *ngFor="let department of report.departments">
+    <tr>
+      <th>{{ department.title }}</th>
+      <ng-container *ngFor="let category of report.categories">
+        <td *ngIf="report.toDepartment[category.id][department.id]">
+          <button [matMenuTriggerData]="{equipments:report.toDepartment[category.id][department.id]}"
+                  [matMenuTriggerFor]="menu" mat-icon-button
+                  tabindex="-1">
+            +{{ report.toDepartment[category.id][department.id].length }}
+          </button>
+        </td>
+        <td *ngIf="!report.toDepartment[category.id][department.id]">0</td>
+        <td *ngIf="report.fromDepartment[category.id][department.id]">
+          <button [matMenuTriggerData]="{equipments:report.fromDepartment[category.id][department.id]}"
+                  [matMenuTriggerFor]="menu" mat-icon-button
+                  tabindex="-1">
+            -{{ report.fromDepartment[category.id][department.id].length }}
+          </button>
+        </td>
+        <td *ngIf="!report.fromDepartment[category.id][department.id]">0</td>
+      </ng-container>
+    </tr>
+  </ng-container>
+  <tr>
+    <th>Итого</th>
+    <ng-container *ngFor="let category of report.categories">
+      <td *ngIf="report.total[category.id]" colspan="2">
+        <button [matMenuTriggerData]="{equipments:report.total[category.id]}" [matMenuTriggerFor]="menu"
+                mat-icon-button
+                tabindex="-1">
+          {{ report.total[category.id].length }}
+        </button>
+      </td>
+      <td *ngIf="!report.total[category.id]" colspan="2">0</td>
+    </ng-container>
+  </tr>
+</table>
+<mat-menu #menu="matMenu" yPosition="below">
+  <ng-template let-equipments="equipments" matMenuContent>
+    <ng-container *ngFor="let equipment of equipments">
+      <div mat-menu-item>{{ equipment.date * 1000|date:'dd.MM.YYYY' }} -  {{ equipment.equipment.profile.title }}
+        ({{ equipment.equipment.serialNumber }})
+      </div>
+    </ng-container>
+  </ng-template>
+</mat-menu>

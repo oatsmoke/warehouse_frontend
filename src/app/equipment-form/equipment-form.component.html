@@ -1,43 +1,43 @@
 <mat-toolbar color="primary">
-    {{head}}
-    <div class="rightPositionToolBar">
-        <button (click)="close()" mat-icon-button tabindex="-1" title="Закрыть">
-            <mat-icon>cancel</mat-icon>
-        </button>
-    </div>
+  {{ head }}
+  <div class="rightPositionToolBar">
+    <button (click)="close()" mat-icon-button tabindex="-1" title="Закрыть">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
 <form [formGroup]="equipmentForm">
-    <mat-form-field *ngIf="!updateMode">
-        <mat-label>Дата</mat-label>
-        <input [formControl]="date" [matDatepicker]="picker" matInput>
-        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="date.invalid">{{inputErrorMessage(date)}}</mat-error>
-    </mat-form-field>
-    <br *ngIf="!updateMode">
-    <mat-form-field *ngIf="!updateMode">
-        <mat-label>Компания</mat-label>
-        <mat-select (selectionChange)="check()" [formControl]="company">
-            <mat-option *ngFor="let company of companies" [value]="company.id">{{company.title}}</mat-option>
-        </mat-select>
-        <mat-error *ngIf="company.invalid">{{inputErrorMessage(company)}}</mat-error>
-    </mat-form-field>
-    <br *ngIf="!updateMode">
-    <mat-form-field>
-        <mat-label>Серийный номер</mat-label>
-        <input (input)="check()" [formControl]="serialNumber" matInput type="text">
-        <mat-error *ngIf="serialNumber.invalid">{{inputErrorMessage(serialNumber)}}</mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-        <mat-label>Профиль</mat-label>
-        <mat-select (selectionChange)="check()" [formControl]="profile">
-            <mat-option *ngFor="let profile of profiles" [value]="profile.id">{{profile.title}}</mat-option>
-        </mat-select>
-        <mat-error *ngIf="profile.invalid">{{inputErrorMessage(profile)}}</mat-error>
-    </mat-form-field>
-    <br>
-    <button (click)="ok()" [disabled]="equipmentForm.invalid||!changed" mat-stroked-button>
-        OK
-    </button>
+  <mat-form-field *ngIf="!updateMode">
+    <mat-label>Дата</mat-label>
+    <input [formControl]="date" [matDatepicker]="picker" matInput>
+    <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="date.invalid">{{ inputErrorMessage(date) }}</mat-error>
+  </mat-form-field>
+  <br *ngIf="!updateMode">
+  <mat-form-field *ngIf="!updateMode">
+    <mat-label>Компания</mat-label>
+    <mat-select (selectionChange)="check()" [formControl]="company">
+      <mat-option *ngFor="let company of companies" [value]="company.id">{{ company.title }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="company.invalid">{{ inputErrorMessage(company) }}</mat-error>
+  </mat-form-field>
+  <br *ngIf="!updateMode">
+  <mat-form-field>
+    <mat-label>Профиль</mat-label>
+    <mat-select (selectionChange)="check()" [formControl]="profile">
+      <mat-option *ngFor="let profile of profiles" [value]="profile.id">{{ profile.title }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="profile.invalid">{{ inputErrorMessage(profile) }}</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Серийный номер</mat-label>
+    <input (input)="check()" [formControl]="serialNumber" matInput type="text">
+    <mat-error *ngIf="serialNumber.invalid">{{ inputErrorMessage(serialNumber) }}</mat-error>
+  </mat-form-field>
+  <br>
+  <button (click)="ok()" [disabled]="equipmentForm.invalid||!changed" mat-stroked-button>
+    OK
+  </button>
 </form>

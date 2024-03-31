@@ -7,6 +7,9 @@
     <button (click)="dialogDepartmentStaff()" *ngIf="isDepartment" mat-icon-button>
         <mat-icon title="Сотрудники отдела">supervised_user_circle</mat-icon>
     </button>
+    <button (click)="dialogEquipmentReport()" *ngIf="isDepartment" mat-icon-button>
+        <mat-icon title="Отчет">summarize</mat-icon>
+    </button>
     <button (click)="dialogUpdateContract()" *ngIf="isContract&&haveAccessControl()" mat-icon-button>
         <mat-icon title="Изменить договор">edit</mat-icon>
     </button>

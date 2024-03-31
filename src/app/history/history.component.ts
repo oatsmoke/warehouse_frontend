@@ -15,12 +15,12 @@ export class HistoryComponent implements OnInit {
 
     ngOnInit(): void {
         this.code = this.location.code
-        if (this.location.code.indexOf("TRANSFER") != -1) {
-            this.code = this.location.code.replace("TRANSFER_", "")
-        }
-        if (this.location.code.indexOf("REPLACE") != -1) {
-            this.code = this.location.code.replace("REPLACE_", "")
-        }
+        // if (this.location.code.indexOf("TRANSFER") != -1) {
+        //     this.code = this.location.code.replace("TRANSFER_", "")
+        // }
+        // if (this.location.code.indexOf("REPLACE") != -1) {
+        //     this.code = this.location.code.replace("REPLACE_", "")
+        // }
     }
 
     transferTypeConvert(value: string): string {

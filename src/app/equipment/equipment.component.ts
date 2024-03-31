@@ -145,10 +145,22 @@ export class EquipmentComponent implements OnInit {
     }
 
     dialogDepartmentStaff() {
-        this.dialog.open(DialogDepartmentStaffForm, {data:
+        this.dialog.open(DialogDepartmentStaffForm, {
+            data:
                 {
                     locationId: this.thisLocation,
                     haveAccess: this.haveAccessToDepartment()
+                }
+        }).afterClosed().pipe(first()).subscribe(_ => {
+            this.getEquipments()
+        })
+    }
+
+    dialogEquipmentReport() {
+        this.dialog.open(DialogEquipmentReportForm, {
+            data:
+                {
+                    locationId: this.thisLocation
                 }
         }).afterClosed().pipe(first()).subscribe(_ => {
             this.getEquipments()
@@ -271,6 +283,12 @@ export class DialogEquipmentDelete {
     selector: 'dialog-department-staff-form', templateUrl: './dialog-department-staff-form.html'
 })
 export class DialogDepartmentStaffForm {
+}
+
+@Component({
+    selector: 'dialog-equipment-report-form', templateUrl: './dialog-equipment-report-form.html'
+})
+export class DialogEquipmentReportForm {
 }
 
 @Component({

@@ -16,6 +16,13 @@ export class TokenInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError(
                 err => {
+                    if (err.status == 0 || (500 <= err.status && err.status <= 511)) {
+                        this.router.navigate(["api-server-error"], {
+                            queryParams: {
+                                status: err.status, message: err.message
+                            }
+                        }).then()
+                    }
                     if (err.status == 401) {
                         this.router.navigate(["no-access"]).then()
                     }

@@ -104,7 +104,7 @@ export class EquipmentFormComponent implements OnInit {
             toEmployee: toEmployee,
             toContract: toContract,
             transferType: "",
-            price: ""
+            price: 0
         }]
         this.equipmentService.create(
             value.date, value.company, value.serialNumber, value.profile, requestLocation

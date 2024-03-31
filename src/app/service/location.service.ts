@@ -14,7 +14,7 @@ export interface RequestLocation {
     toEmployee: number
     toContract: number
     transferType: string
-    price: string
+    price: number
 }
 
 export interface ThisLocation {

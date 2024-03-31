@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {first} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {Employee, EmployeeService} from "../service/employee.service";
 import {Department, DepartmentService} from "../service/department.service";
@@ -15,8 +14,7 @@ export class MainComponent implements OnInit {
     departments: Department[] = []
     employees: Employee[] = []
 
-    constructor(private activatedRoute: ActivatedRoute,
-                private departmentService: DepartmentService,
+    constructor(private departmentService: DepartmentService,
                 private employeeService: EmployeeService,
                 private globalService: GlobalService,
                 private dialog: MatDialog) {
