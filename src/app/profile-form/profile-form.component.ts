@@ -37,7 +37,7 @@ export class ProfileFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.categoryService.getAll().pipe(first()).subscribe((value: any) => {
+        this.categoryService.getAll(false).pipe(first()).subscribe((value: any) => {
             this.categories = value
         })
         if (this.data != null) {

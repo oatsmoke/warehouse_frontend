@@ -6,75 +6,97 @@ import {Category, CategoryService} from "../service/category.service";
 import {GlobalService} from "../service/global.service";
 
 @Component({
-    selector: 'app-category',
-    templateUrl: './category.component.html',
-    styleUrls: ['./category.component.css']
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-    categories: Category[] = []
-    columns: string[] = ["title", "control"]
+  categories: Category[] = []
+  columns: string[] = ["title", "deleted", "control"]
 
-    constructor(private activatedRoute: ActivatedRoute,
-                private dialog: MatDialog,
-                private globalService: GlobalService,
-                private categoryService: CategoryService) {
-    }
+  constructor(private activatedRoute: ActivatedRoute,
+              private dialog: MatDialog,
+              private globalService: GlobalService,
+              private categoryService: CategoryService) {
+  }
 
-    ngOnInit(): void {
-        this.activatedRoute.data.pipe(first()).subscribe((value: any) => {
-            this.categories = value.categoryResolver
-        })
-    }
+  ngOnInit(): void {
+    this.activatedRoute.data.pipe(first()).subscribe((value: any) => {
+      this.categories = value.categoryResolver
+    })
+  }
 
-    getCategories() {
-        this.categoryService.getAll().pipe(first()).subscribe((value: any) => {
-            this.categories = value
-        })
-    }
+  getCategories() {
+    this.categoryService.getAll(true).pipe(first()).subscribe((value: any) => {
+      this.categories = value
+    })
+  }
 
-    dialogCreateCategory() {
-        this.dialog.open(DialogCategoryForm).afterClosed().pipe(first()).subscribe(_ => {
+  dialogCreateCategory() {
+    this.dialog.open(DialogCategoryForm).afterClosed().pipe(first()).subscribe(_ => {
+      this.getCategories()
+    })
+  }
+
+  dialogUpdateCategory(id: number) {
+    this.categoryService.getById(id).pipe(first()).subscribe((value: Category) => {
+      const category = {
+        id: id,
+        title: value.title
+      }
+      this.dialog.open(DialogCategoryForm, {data: category}).afterClosed().pipe(first()).subscribe(_ => {
+        this.getCategories()
+      });
+    })
+  }
+
+  dialogRestoreCategory(id: number) {
+    this.dialog.open(DialogCategoryRestore, {data: this.globalService.restore}).afterClosed().pipe(first()).subscribe(value => {
+      if (value) {
+        this.categoryService.restore(id).pipe(first()).subscribe({
+          next: _ => {
+            this.globalService.msg("Восстановлено!")
             this.getCategories()
+          },
+          error: error => {
+            this.globalService.msg(error.error.message)
+          }
         })
-    }
+      }
+    })
+  }
 
-    dialogUpdateCategory(id: number) {
-        this.categoryService.getById(id).pipe(first()).subscribe((value: Category) => {
-            const category = {
-                id: id,
-                title: value.title
-            }
-            this.dialog.open(DialogCategoryForm, {data: category}).afterClosed().pipe(first()).subscribe(_ => {
-                this.getCategories()
-            });
+  dialogDeleteCategory(id: number) {
+    this.dialog.open(DialogCategoryDelete, {data: this.globalService.delete}).afterClosed().pipe(first()).subscribe(value => {
+      if (value) {
+        this.categoryService.delete(id).pipe(first()).subscribe({
+          next: _ => {
+            this.globalService.msg("Удалено!")
+            this.getCategories()
+          },
+          error: error => {
+            this.globalService.msg(error.error.message)
+          }
         })
-    }
-
-    dialogDeleteCategory(id: number) {
-        this.dialog.open(DialogCategoryDelete).afterClosed().pipe(first()).subscribe(value => {
-            if (value) {
-                this.categoryService.delete(id).pipe(first()).subscribe({
-                    next: _ => {
-                        this.globalService.msg("Удалено!")
-                        this.getCategories()
-                    },
-                    error: error => {
-                        this.globalService.msg(error.error.message)
-                    }
-                })
-            }
-        })
-    }
+      }
+    })
+  }
 }
 
 @Component({
-    selector: 'dialog-category-form', templateUrl: './dialog-category-form.html'
+  selector: 'dialog-category-form', templateUrl: './dialog-category-form.html'
 })
 export class DialogCategoryForm {
 }
 
 @Component({
-    selector: 'dialog-category-delete', templateUrl: './dialog-category-delete.html'
+  selector: 'dialog-category-restore', templateUrl: './dialog-category-restore.html'
+})
+export class DialogCategoryRestore {
+}
+
+@Component({
+  selector: 'dialog-category-delete', templateUrl: './dialog-category-delete.html'
 })
 export class DialogCategoryDelete {
 }

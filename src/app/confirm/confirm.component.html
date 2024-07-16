@@ -1,11 +1,11 @@
 <mat-toolbar color="primary">
-    Удалить?
+  {{ title }}?
 </mat-toolbar>
 <form>
-    <button [mat-dialog-close]="true" mat-stroked-button>
-        Да
-    </button>
-    <button [mat-dialog-close]="false" mat-stroked-button>
-        Нет
-    </button>
+  <button [mat-dialog-close]="true" mat-stroked-button>
+    Да
+  </button>
+  <button [mat-dialog-close]="false" mat-stroked-button>
+    Нет
+  </button>
 </form>

@@ -47,21 +47,26 @@ import {ConfirmComponent} from './confirm/confirm.component';
 import {TokenInterceptor} from "./token.interceptor";
 import {DepartmentComponent, DialogDepartmentDelete, DialogDepartmentForm} from './department/department.component';
 import {DepartmentFormComponent} from './department-form/department-form.component';
-import {CategoryComponent, DialogCategoryDelete, DialogCategoryForm} from './category/category.component';
+import {
+  CategoryComponent,
+  DialogCategoryDelete,
+  DialogCategoryForm,
+  DialogCategoryRestore
+} from './category/category.component';
 import {CategoryFormComponent} from './category-form/category-form.component';
 import {DialogProfileDelete, DialogProfileForm, ProfileComponent} from './profile/profile.component';
 import {ProfileFormComponent} from './profile-form/profile-form.component';
 import {
-    DialogContractDelete,
-    DialogContractUpdateForm,
-    DialogDepartmentStaffForm,
-    DialogEquipmentDelete,
-    DialogEquipmentForm,
-    DialogEquipmentHistoryForm,
-    DialogEquipmentReplaceForm,
-    DialogEquipmentReportForm,
-    DialogEquipmentTransferForm,
-    EquipmentComponent
+  DialogContractDelete,
+  DialogContractUpdateForm,
+  DialogDepartmentStaffForm,
+  DialogEquipmentDelete,
+  DialogEquipmentForm,
+  DialogEquipmentHistoryForm,
+  DialogEquipmentReplaceForm,
+  DialogEquipmentReportForm,
+  DialogEquipmentTransferForm,
+  EquipmentComponent
 } from './equipment/equipment.component';
 import {NoContentComponent} from './no-content/no-content.component';
 import {EquipmentFormComponent} from './equipment-form/equipment-form.component';
@@ -90,162 +95,163 @@ import {EquipmentReportFormComponent} from './equipment-report-form/equipment-re
 
 const mainRoutes: Routes = [
 
-    {path: "home", component: HomeComponent},
-    {
-        path: ":partition/:id",
-        component: EquipmentComponent,
-        resolve: {partitionResolver: PartitionResolver, equipmentResolver: EquipmentResolver}
-    },
-    {
-        path: "employee",
-        component: EmployeeComponent,
-        resolve: {employeeResolver: EmployeeResolver},
-        canActivate: [AccessGuard]
-    },
-    {
-        path: "department",
-        component: DepartmentComponent,
-        resolve: {departmentResolver: DepartmentResolver},
-        canActivate: [AccessGuard]
-    },
-    {
-        path: "category",
-        component: CategoryComponent,
-        resolve: {categoryResolver: CategoryResolver},
-        canActivate: [AccessGuard]
-    },
-    {
-        path: "profile",
-        component: ProfileComponent,
-        resolve: {profileResolver: ProfileResolver},
-        canActivate: [AccessGuard]
-    },
-    {
-        path: "company",
-        component: CompanyComponent,
-        resolve: {companyResolver: CompanyResolver},
-        canActivate: [AccessGuard]
-    },
-    {path: "**", redirectTo: "home"}
+  {path: "home", component: HomeComponent},
+  {
+    path: ":partition/:id",
+    component: EquipmentComponent,
+    resolve: {partitionResolver: PartitionResolver, equipmentResolver: EquipmentResolver}
+  },
+  {
+    path: "employee",
+    component: EmployeeComponent,
+    resolve: {employeeResolver: EmployeeResolver},
+    canActivate: [AccessGuard]
+  },
+  {
+    path: "department",
+    component: DepartmentComponent,
+    resolve: {departmentResolver: DepartmentResolver},
+    canActivate: [AccessGuard]
+  },
+  {
+    path: "category",
+    component: CategoryComponent,
+    resolve: {categoryResolver: CategoryResolver},
+    canActivate: [AccessGuard]
+  },
+  {
+    path: "profile",
+    component: ProfileComponent,
+    resolve: {profileResolver: ProfileResolver},
+    canActivate: [AccessGuard]
+  },
+  {
+    path: "company",
+    component: CompanyComponent,
+    resolve: {companyResolver: CompanyResolver},
+    canActivate: [AccessGuard]
+  },
+  {path: "**", redirectTo: "home"}
 ]
 
 const appRoutes: Routes = [
-    {path: "api-server-error", component: ApiServerErrorComponent},
-    {path: "no-access", component: AuthFormComponent},
-    {
-        path: "",
-        component: MainComponent,
-        children: mainRoutes
-    },
-    {path: "**", redirectTo: ""}
+  {path: "api-server-error", component: ApiServerErrorComponent},
+  {path: "no-access", component: AuthFormComponent},
+  {
+    path: "",
+    component: MainComponent,
+    children: mainRoutes
+  },
+  {path: "**", redirectTo: ""}
 ]
 
 export function initializeApp(appInitService: AppInitService) {
-    return () => {
-        return appInitService.Init();
-    }
+  return () => {
+    return appInitService.Init();
+  }
 }
 
 @NgModule({
-    declarations: [
-        AuthFormComponent,
-        DialogEmployeeForm,
-        DialogEmployeeDelete,
-        DialogDepartmentForm,
-        DialogDepartmentDelete,
-        DialogCategoryForm,
-        DialogCategoryDelete,
-        DialogProfileForm,
-        DialogProfileDelete,
-        DialogEquipmentForm,
-        DialogEquipmentDelete,
-        DialogEquipmentTransferForm,
-        DialogEquipmentReplaceForm,
-        DialogDepartmentStaffForm,
-        DialogEquipmentReportForm,
-        DialogEquipmentHistoryForm,
-        DialogContractCreateForm,
-        DialogContractUpdateForm,
-        DialogContractDelete,
-        DialogContractInputForm,
-        DialogCompanyDelete,
-        DialogCompanyForm,
-        HomeComponent,
-        MainComponent,
-        EmployeeComponent,
-        EmployeeFormComponent,
-        ConfirmComponent,
-        DepartmentComponent,
-        DepartmentFormComponent,
-        CategoryComponent,
-        CategoryFormComponent,
-        ProfileComponent,
-        ProfileFormComponent,
-        EquipmentComponent,
-        NoContentComponent,
-        EquipmentFormComponent,
-        EquipmentTransferFormComponent,
-        DepartmentStaffFormComponent,
-        EquipmentHistoryFormComponent,
-        HistoryComponent,
-        ContractFormComponent,
-        ContractInputFormComponent,
-        ShellComponent,
-        CompanyComponent,
-        CompanyFormComponent,
-        EquipmentReplaceFormComponent,
-        ApiServerErrorComponent,
-        EquipmentReportFormComponent
-    ],
-    imports: [
-        BrowserModule,
-        RouterModule.forRoot(appRoutes),
-        BrowserAnimationsModule,
-        MatAutocompleteModule,
-        MatBadgeModule,
-        MatBottomSheetModule,
-        MatButtonModule,
-        MatButtonToggleModule,
-        MatCardModule,
-        MatCheckboxModule,
-        MatChipsModule,
-        MatStepperModule,
-        MatDatepickerModule,
-        MatDialogModule,
-        MatDividerModule,
-        MatExpansionModule,
-        MatGridListModule,
-        MatIconModule,
-        MatInputModule,
-        MatListModule,
-        MatMenuModule,
-        MatNativeDateModule,
-        MatPaginatorModule,
-        MatProgressBarModule,
-        MatProgressSpinnerModule,
-        MatRadioModule,
-        MatRippleModule,
-        MatSelectModule,
-        MatSidenavModule,
-        MatSliderModule,
-        MatSlideToggleModule,
-        MatSnackBarModule,
-        MatSortModule,
-        MatTableModule,
-        MatTabsModule,
-        MatToolbarModule,
-        MatTooltipModule,
-        MatTreeModule,
-        ReactiveFormsModule,
-        HttpClientModule
-    ],
-    providers: [
-        {provide: APP_INITIALIZER, useFactory: initializeApp, deps: [AppInitService], multi: true},
-        {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-        {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
-        {provide: MAT_DATE_LOCALE, useValue: {useUtc: true}}
-    ],
-    bootstrap: [ShellComponent]
+  declarations: [
+    AuthFormComponent,
+    DialogEmployeeForm,
+    DialogEmployeeDelete,
+    DialogDepartmentForm,
+    DialogDepartmentDelete,
+    DialogCategoryForm,
+    DialogCategoryRestore,
+    DialogCategoryDelete,
+    DialogProfileForm,
+    DialogProfileDelete,
+    DialogEquipmentForm,
+    DialogEquipmentDelete,
+    DialogEquipmentTransferForm,
+    DialogEquipmentReplaceForm,
+    DialogDepartmentStaffForm,
+    DialogEquipmentReportForm,
+    DialogEquipmentHistoryForm,
+    DialogContractCreateForm,
+    DialogContractUpdateForm,
+    DialogContractDelete,
+    DialogContractInputForm,
+    DialogCompanyDelete,
+    DialogCompanyForm,
+    HomeComponent,
+    MainComponent,
+    EmployeeComponent,
+    EmployeeFormComponent,
+    ConfirmComponent,
+    DepartmentComponent,
+    DepartmentFormComponent,
+    CategoryComponent,
+    CategoryFormComponent,
+    ProfileComponent,
+    ProfileFormComponent,
+    EquipmentComponent,
+    NoContentComponent,
+    EquipmentFormComponent,
+    EquipmentTransferFormComponent,
+    DepartmentStaffFormComponent,
+    EquipmentHistoryFormComponent,
+    HistoryComponent,
+    ContractFormComponent,
+    ContractInputFormComponent,
+    ShellComponent,
+    CompanyComponent,
+    CompanyFormComponent,
+    EquipmentReplaceFormComponent,
+    ApiServerErrorComponent,
+    EquipmentReportFormComponent
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule,
+    MatAutocompleteModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatTreeModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
+  providers: [
+    {provide: APP_INITIALIZER, useFactory: initializeApp, deps: [AppInitService], multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
+    {provide: MAT_DATE_LOCALE, useValue: {useUtc: true}}
+  ],
+  bootstrap: [ShellComponent]
 })
 export class AppModule {
 }
