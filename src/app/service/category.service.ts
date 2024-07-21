@@ -18,29 +18,29 @@ export class CategoryService {
   }
 
   create(title: string) {
-    return this.httpClient.post<any>(this.globalService.API_URL + "/api/category/create", {title})
-  }
-
-  getById(id: number) {
-    return this.httpClient.post<any>(this.globalService.API_URL + "/api/category/getById", {id});
-  }
-
-  getAll(deleted: boolean) {
-    return this.httpClient.post<any>(this.globalService.API_URL + "/api/category/getAll", deleted);
+    return this.httpClient.post<Category>(this.globalService.API_URL + "/api/category/create", {title})
   }
 
   update(id: number, title: string) {
-    return this.httpClient.post<any>(this.globalService.API_URL + "/api/category/update", {
+    return this.httpClient.post<Category>(this.globalService.API_URL + "/api/category/update", {
       id,
       title
     });
   }
 
-  restore(id: number) {
-    return this.httpClient.post<any>(this.globalService.API_URL + "/api/category/restore", {id});
+  delete(id: number) {
+    return this.httpClient.post<Category>(this.globalService.API_URL + "/api/category/delete", {id});
   }
 
-  delete(id: number) {
-    return this.httpClient.post<any>(this.globalService.API_URL + "/api/category/delete", {id});
+  restore(id: number) {
+    return this.httpClient.post<Category>(this.globalService.API_URL + "/api/category/restore", {id});
+  }
+
+  getAll(deleted: boolean) {
+    return this.httpClient.post<Category>(this.globalService.API_URL + "/api/category/getAll", deleted);
+  }
+
+  getById(id: number) {
+    return this.httpClient.post<Category>(this.globalService.API_URL + "/api/category/getById", {id});
   }
 }

@@ -54,7 +54,12 @@ import {
   DialogCategoryRestore
 } from './category/category.component';
 import {CategoryFormComponent} from './category-form/category-form.component';
-import {DialogProfileDelete, DialogProfileForm, ProfileComponent} from './profile/profile.component';
+import {
+  DialogProfileDelete,
+  DialogProfileForm,
+  DialogProfileRestore,
+  ProfileComponent
+} from './profile/profile.component';
 import {ProfileFormComponent} from './profile-form/profile-form.component';
 import {
   DialogContractDelete,
@@ -161,8 +166,10 @@ export function initializeApp(appInitService: AppInitService) {
     DialogCategoryForm,
     DialogCategoryRestore,
     DialogCategoryDelete,
+    ProfileComponent,
     DialogProfileForm,
     DialogProfileDelete,
+    DialogProfileRestore,
     DialogEquipmentForm,
     DialogEquipmentDelete,
     DialogEquipmentTransferForm,
@@ -185,7 +192,6 @@ export function initializeApp(appInitService: AppInitService) {
     DepartmentFormComponent,
     CategoryComponent,
     CategoryFormComponent,
-    ProfileComponent,
     ProfileFormComponent,
     EquipmentComponent,
     NoContentComponent,

@@ -4,44 +4,49 @@ import {Category} from "./category.service";
 import {GlobalService} from "./global.service";
 
 export interface Profile {
-    id: number
-    title: string
-    category: Category
+  id: number
+  title: string
+  category: Category
+  deleted: boolean
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ProfileService {
 
-    constructor(private httpClient: HttpClient,
-                private globalService: GlobalService) {
-    }
+  constructor(private httpClient: HttpClient,
+              private globalService: GlobalService) {
+  }
 
-    create(title: string, category: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/profile/create", {
-            title,
-            category: {id: category}
-        })
-    }
+  create(title: string, category: number) {
+    return this.httpClient.post<Profile>(this.globalService.API_URL + "/api/profile/create", {
+      title,
+      category: {id: category}
+    })
+  }
 
-    getById(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/profile/getById", {id});
-    }
+  update(id: number, title: string, category: number) {
+    return this.httpClient.post<Profile>(this.globalService.API_URL + "/api/profile/update", {
+      id,
+      title,
+      category: {id: category}
+    });
+  }
 
-    getAll() {
-        return this.httpClient.get<any>(this.globalService.API_URL + "/api/profile/getAll");
-    }
+  delete(id: number) {
+    return this.httpClient.post<Profile>(this.globalService.API_URL + "/api/profile/delete", {id});
+  }
 
-    update(id: number, title: string, category: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/profile/update", {
-            id,
-            title,
-            category: {id: category}
-        });
-    }
+  restore(id: number) {
+    return this.httpClient.post<Profile>(this.globalService.API_URL + "/api/profile/restore", {id});
+  }
 
-    delete(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/profile/delete", {id});
-    }
+  getAll(deleted: boolean) {
+    return this.httpClient.post<Profile>(this.globalService.API_URL + "/api/profile/getAll", deleted);
+  }
+
+  getById(id: number) {
+    return this.httpClient.post<Profile>(this.globalService.API_URL + "/api/profile/getById", {id});
+  }
 }

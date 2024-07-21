@@ -50,12 +50,12 @@ export class CategoryComponent implements OnInit {
     })
   }
 
-  dialogRestoreCategory(id: number) {
-    this.dialog.open(DialogCategoryRestore, {data: this.globalService.restore}).afterClosed().pipe(first()).subscribe(value => {
+  dialogDeleteCategory(id: number) {
+    this.dialog.open(DialogCategoryDelete, {data: this.globalService.delete}).afterClosed().pipe(first()).subscribe(value => {
       if (value) {
-        this.categoryService.restore(id).pipe(first()).subscribe({
+        this.categoryService.delete(id).pipe(first()).subscribe({
           next: _ => {
-            this.globalService.msg("Восстановлено!")
+            this.globalService.msg("Удалено!")
             this.getCategories()
           },
           error: error => {
@@ -66,12 +66,12 @@ export class CategoryComponent implements OnInit {
     })
   }
 
-  dialogDeleteCategory(id: number) {
-    this.dialog.open(DialogCategoryDelete, {data: this.globalService.delete}).afterClosed().pipe(first()).subscribe(value => {
+  dialogRestoreCategory(id: number) {
+    this.dialog.open(DialogCategoryRestore, {data: this.globalService.restore}).afterClosed().pipe(first()).subscribe(value => {
       if (value) {
-        this.categoryService.delete(id).pipe(first()).subscribe({
+        this.categoryService.restore(id).pipe(first()).subscribe({
           next: _ => {
-            this.globalService.msg("Удалено!")
+            this.globalService.msg("Восстановлено!")
             this.getCategories()
           },
           error: error => {
@@ -90,13 +90,13 @@ export class DialogCategoryForm {
 }
 
 @Component({
-  selector: 'dialog-category-restore', templateUrl: './dialog-category-restore.html'
-})
-export class DialogCategoryRestore {
-}
-
-@Component({
   selector: 'dialog-category-delete', templateUrl: './dialog-category-delete.html'
 })
 export class DialogCategoryDelete {
+}
+
+@Component({
+  selector: 'dialog-category-restore', templateUrl: './dialog-category-restore.html'
+})
+export class DialogCategoryRestore {
 }

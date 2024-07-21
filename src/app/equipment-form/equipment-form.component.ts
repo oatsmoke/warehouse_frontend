@@ -50,7 +50,7 @@ export class EquipmentFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.profileService.getAll().pipe(first()).subscribe((value: any) => {
+        this.profileService.getAll(false).pipe(first()).subscribe((value: any) => {
             this.profiles = value
         })
         this.companyService.getAll().pipe(first()).subscribe((value: any) => {

@@ -24,11 +24,11 @@
         <button (click)="dialogUpdateCategory(column.id)" mat-menu-item>
           Изменить
         </button>
-        <button (click)="dialogRestoreCategory(column.id)" *ngIf="column.deleted" mat-menu-item>
-          Восстановить
-        </button>
         <button (click)="dialogDeleteCategory(column.id)" *ngIf="!column.deleted" mat-menu-item>
           Удалить
+        </button>
+        <button (click)="dialogRestoreCategory(column.id)" *ngIf="column.deleted" mat-menu-item>
+          Восстановить
         </button>
       </mat-menu>
     </td>
