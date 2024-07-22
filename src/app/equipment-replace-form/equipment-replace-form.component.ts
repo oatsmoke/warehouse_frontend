@@ -63,7 +63,7 @@ export class EquipmentReplaceFormComponent implements OnInit {
     }
 
     getDepartments() {
-        this.departmentService.getAll().pipe(first()).subscribe((value: any) => {
+        this.departmentService.getAll(false).pipe(first()).subscribe((value:Department[]) => {
             this.departments = value
         })
     }

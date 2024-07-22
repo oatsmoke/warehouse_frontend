@@ -37,7 +37,7 @@ export class CategoryService {
   }
 
   getAll(deleted: boolean) {
-    return this.httpClient.post<Category>(this.globalService.API_URL + "/api/category/getAll", deleted);
+    return this.httpClient.post<Category[]>(this.globalService.API_URL + "/api/category/getAll", deleted);
   }
 
   getById(id: number) {

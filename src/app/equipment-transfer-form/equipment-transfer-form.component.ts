@@ -133,11 +133,11 @@ export class EquipmentTransferFormComponent implements OnInit {
     departmentList() {
         this.storage = this.data.thisLocation.id != "0"
         if (this.data.thisLocation.partition == "department" && !this.employeesOnly) {
-            this.departmentService.getAllButOne(Number(this.data.thisLocation.id)).pipe(first()).subscribe(value => {
+            this.departmentService.getAllButOne(Number(this.data.thisLocation.id)).pipe(first()).subscribe((value:Department[]) => {
                 this.departments = value
             })
         } else {
-            this.departmentService.getAll().pipe(first()).subscribe(value => {
+            this.departmentService.getAll(false).pipe(first()).subscribe((value:Department[]) => {
                 this.departments = value
             })
         }

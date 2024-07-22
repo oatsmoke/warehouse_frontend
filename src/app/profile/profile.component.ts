@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
   }
 
   dialogDeleteProfile(id: number) {
-    this.dialog.open(DialogProfileDelete, {data: this.globalService.delete}).afterClosed().pipe(first()).subscribe(value => {
+    this.dialog.open(DialogProfileDeleteRestore, {data: this.globalService.delete}).afterClosed().pipe(first()).subscribe(value => {
       if (value) {
         this.profileService.delete(id).pipe(first()).subscribe({
           next: _ => {
@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit {
   }
 
   dialogRestoreProfile(id: number) {
-    this.dialog.open(DialogProfileRestore, {data: this.globalService.restore}).afterClosed().pipe(first()).subscribe(value => {
+    this.dialog.open(DialogProfileDeleteRestore, {data: this.globalService.restore}).afterClosed().pipe(first()).subscribe(value => {
       if (value) {
         this.profileService.restore(id).pipe(first()).subscribe({
           next: _ => {
@@ -92,13 +92,7 @@ export class DialogProfileForm {
 }
 
 @Component({
-  selector: 'dialog-profile-delete', templateUrl: './dialog-profile-delete.html'
+  selector: 'dialog-profile-delete-restore', templateUrl: './dialog-profile-delete-restore.html'
 })
-export class DialogProfileDelete {
-}
-
-@Component({
-  selector: 'dialog-profile-restore', templateUrl: './dialog-profile-restore.html'
-})
-export class DialogProfileRestore {
+export class DialogProfileDeleteRestore {
 }

@@ -43,7 +43,7 @@ export class ProfileService {
   }
 
   getAll(deleted: boolean) {
-    return this.httpClient.post<Profile>(this.globalService.API_URL + "/api/profile/getAll", deleted);
+    return this.httpClient.post<Profile[]>(this.globalService.API_URL + "/api/profile/getAll", deleted);
   }
 
   getById(id: number) {

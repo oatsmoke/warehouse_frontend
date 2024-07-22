@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
+import {Resolve} from '@angular/router';
 import {Observable} from 'rxjs';
-import {CompanyService} from "../service/company.service";
+import {Company, CompanyService} from "../service/company.service";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class CompanyResolver implements Resolve<any> {
-    constructor(private companyService: CompanyService) {
-    }
+  constructor(private companyService: CompanyService) {
+  }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-        return this.companyService.getAll()
-    }
+  resolve(): Observable<Company[]> {
+    return this.companyService.getAll(true)
+  }
 }

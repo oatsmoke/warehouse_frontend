@@ -1,31 +1,38 @@
 <mat-toolbar>
-    Компании
-    <button (click)="dialogCreateCompany()" mat-icon-button>
-        <mat-icon title="Добавить компанию">add_circle</mat-icon>
-    </button>
+  Компании
+  <button (click)="dialogCreateCompany()" mat-icon-button>
+    <mat-icon title="Добавить компанию">add_circle</mat-icon>
+  </button>
 </mat-toolbar>
 <app-no-content *ngIf="!companies"></app-no-content>
 <table *ngIf="companies" [dataSource]="companies" mat-table>
-    <ng-container matColumnDef="title">
-        <th *matHeaderCellDef mat-header-cell>Название</th>
-        <td *matCellDef="let column" mat-cell>{{column.title}}</td>
-    </ng-container>
-    <ng-container matColumnDef="control">
-        <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let column" class="rightPositionTable" mat-cell>
-            <button [matMenuTriggerFor]="options" mat-icon-button>
-                <mat-icon>expand_circle_down</mat-icon>
-            </button>
-            <mat-menu #options="matMenu">
-                <button (click)="dialogUpdateCompany(column.id)" mat-menu-item>
-                    Изменить
-                </button>
-                <button (click)="dialogDeleteCompany(column.id)" mat-menu-item>
-                    Удалить
-                </button>
-            </mat-menu>
-        </td>
-    </ng-container>
-    <tr *matHeaderRowDef="columns" mat-header-row></tr>
-    <tr *matRowDef="let row; columns: columns;" mat-row></tr>
+  <ng-container matColumnDef="title">
+    <th *matHeaderCellDef mat-header-cell>Название</th>
+    <td *matCellDef="let column" mat-cell>{{ column.title }}</td>
+  </ng-container>
+  <ng-container matColumnDef="deleted">
+    <th *matHeaderCellDef mat-header-cell>Удалено</th>
+    <td *matCellDef="let column" mat-cell>{{ column.deleted }}</td>
+  </ng-container>
+  <ng-container matColumnDef="control">
+    <th *matHeaderCellDef mat-header-cell></th>
+    <td *matCellDef="let column" class="rightPositionTable" mat-cell>
+      <button [matMenuTriggerFor]="options" mat-icon-button>
+        <mat-icon>expand_circle_down</mat-icon>
+      </button>
+      <mat-menu #options="matMenu">
+        <button (click)="dialogUpdateCompany(column.id)" mat-menu-item>
+          Изменить
+        </button>
+        <button (click)="dialogDeleteCompany(column.id)" *ngIf="!column.deleted" mat-menu-item>
+          Удалить
+        </button>
+        <button (click)="dialogRestoreCompany(column.id)" *ngIf="column.deleted" mat-menu-item>
+          Восстановить
+        </button>
+      </mat-menu>
+    </td>
+  </ng-container>
+  <tr *matHeaderRowDef="columns" mat-header-row></tr>
+  <tr *matRowDef="let row; columns: columns;" mat-row></tr>
 </table>

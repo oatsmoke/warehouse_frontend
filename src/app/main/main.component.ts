@@ -6,61 +6,61 @@ import {Department, DepartmentService} from "../service/department.service";
 import {GlobalService} from "../service/global.service";
 
 @Component({
-    selector: 'app-main', templateUrl: './main.component.html', styleUrls: ['./main.component.css']
+  selector: 'app-main', templateUrl: './main.component.html', styleUrls: ['./main.component.css']
 })
 
 export class MainComponent implements OnInit {
-    employee: Employee = this.globalService.employee
-    departments: Department[] = []
-    employees: Employee[] = []
+  employee: Employee = this.globalService.employee
+  departments: Department[] = []
+  employees: Employee[] = []
 
-    constructor(private departmentService: DepartmentService,
-                private employeeService: EmployeeService,
-                private globalService: GlobalService,
-                private dialog: MatDialog) {
-    }
+  constructor(private departmentService: DepartmentService,
+              private employeeService: EmployeeService,
+              private globalService: GlobalService,
+              private dialog: MatDialog) {
+  }
 
-    ngOnInit(): void {
-    }
+  ngOnInit(): void {
+  }
 
-    getDepartments() {
-        this.departmentService.getAll().pipe(first()).subscribe({
-            next: value => {
-                this.departments = value
-            },
-            error: error => {
-                this.globalService.msg(error.error.message)
-            }
-        })
-    }
+  getDepartments() {
+    this.departmentService.getAll(false).pipe(first()).subscribe({
+      next: (value: Department[]) => {
+        this.departments = value
+      },
+      error: error => {
+        this.globalService.msg(error.error.message)
+      }
+    })
+  }
 
-    getEmployees() {
-        this.employeeService.getAll().pipe(first()).subscribe((value: any) => {
-            this.employees = value
-        })
-    }
+  getEmployees() {
+    this.employeeService.getAll().pipe(first()).subscribe((value: any) => {
+      this.employees = value
+    })
+  }
 
-    dialogCreateContract() {
-        this.dialog.open(DialogContractCreateForm)
-    }
+  dialogCreateContract() {
+    this.dialog.open(DialogContractCreateForm)
+  }
 
-    dialogInputContract() {
-        this.dialog.open(DialogContractInputForm)
-    }
+  dialogInputContract() {
+    this.dialog.open(DialogContractInputForm)
+  }
 
-    haveAccessAdmin() {
-        return this.globalService.employee.role == "ADMIN"
-    }
+  haveAccessAdmin() {
+    return this.globalService.employee.role == "ADMIN"
+  }
 }
 
 @Component({
-    selector: 'dialog-contract-create-form', templateUrl: './dialog-contract-create-form.html'
+  selector: 'dialog-contract-create-form', templateUrl: './dialog-contract-create-form.html'
 })
 export class DialogContractCreateForm {
 }
 
 @Component({
-    selector: 'dialog-contract-input-form', templateUrl: './dialog-contract-input-form.html'
+  selector: 'dialog-contract-input-form', templateUrl: './dialog-contract-input-form.html'
 })
 export class DialogContractInputForm {
 }

@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
+import {Resolve} from '@angular/router';
 import {Observable} from 'rxjs';
-import {CategoryService} from "../service/category.service";
+import {Category, CategoryService} from "../service/category.service";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class CategoryResolver implements Resolve<any> {
-    constructor(private categoryService: CategoryService) {
-    }
+  constructor(private categoryService: CategoryService) {
+  }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-        return this.categoryService.getAll(true)
-    }
+  resolve(): Observable<Category[]> {
+    return this.categoryService.getAll(true)
+  }
 }

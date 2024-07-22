@@ -53,7 +53,7 @@ export class EquipmentFormComponent implements OnInit {
         this.profileService.getAll(false).pipe(first()).subscribe((value: any) => {
             this.profiles = value
         })
-        this.companyService.getAll().pipe(first()).subscribe((value: any) => {
+        this.companyService.getAll(false).pipe(first()).subscribe((value: any) => {
             this.companies = value
         })
         if (this.data.update != null) {

@@ -3,40 +3,45 @@ import {HttpClient} from "@angular/common/http";
 import {GlobalService} from "./global.service";
 
 export interface Department {
-    id: number
-    title: string
+  id: number
+  title: string
+  deleted: boolean
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class DepartmentService {
 
-    constructor(private httpClient: HttpClient,
-                private globalService: GlobalService) {
-    }
+  constructor(private httpClient: HttpClient,
+              private globalService: GlobalService) {
+  }
 
-    create(title: string) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/department/create", {title})
-    }
+  create(title: string) {
+    return this.httpClient.post<Department>(this.globalService.API_URL + "/api/department/create", {title})
+  }
 
-    getById(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/department/getById", {id});
-    }
+  update(id: number, title: string) {
+    return this.httpClient.post<Department>(this.globalService.API_URL + "/api/department/update", {id, title});
+  }
 
-    getAll() {
-        return this.httpClient.get<any>(this.globalService.API_URL + "/api/department/getAll");
-    }
+  delete(id: number) {
+    return this.httpClient.post<Department>(this.globalService.API_URL + "/api/department/delete", {id});
+  }
 
-    getAllButOne(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/department/getAllButOne", {id});
-    }
+  restore(id: number) {
+    return this.httpClient.post<Department>(this.globalService.API_URL + "/api/department/restore", {id});
+  }
 
-    update(id: number, title: string) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/department/update", {id, title});
-    }
+  getAll(deleted: boolean) {
+    return this.httpClient.post<Department[]>(this.globalService.API_URL + "/api/department/getAll", deleted);
+  }
 
-    delete(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/department/delete", {id});
-    }
+  getById(id: number) {
+    return this.httpClient.post<Department>(this.globalService.API_URL + "/api/department/getById", {id});
+  }
+
+  getAllButOne(id: number) {
+    return this.httpClient.post<Department[]>(this.globalService.API_URL + "/api/department/getAllButOne", {id});
+  }
 }

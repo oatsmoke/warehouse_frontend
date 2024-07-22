@@ -45,21 +45,15 @@ import {DialogEmployeeDelete, DialogEmployeeForm, EmployeeComponent} from './emp
 import {EmployeeFormComponent} from './employee-form/employee-form.component';
 import {ConfirmComponent} from './confirm/confirm.component';
 import {TokenInterceptor} from "./token.interceptor";
-import {DepartmentComponent, DialogDepartmentDelete, DialogDepartmentForm} from './department/department.component';
+import {
+  DepartmentComponent,
+  DialogDepartmentDeleteRestore,
+  DialogDepartmentForm
+} from './department/department.component';
 import {DepartmentFormComponent} from './department-form/department-form.component';
-import {
-  CategoryComponent,
-  DialogCategoryDelete,
-  DialogCategoryForm,
-  DialogCategoryRestore
-} from './category/category.component';
+import {CategoryComponent, DialogCategoryDeleteRestore, DialogCategoryForm} from './category/category.component';
 import {CategoryFormComponent} from './category-form/category-form.component';
-import {
-  DialogProfileDelete,
-  DialogProfileForm,
-  DialogProfileRestore,
-  ProfileComponent
-} from './profile/profile.component';
+import {DialogProfileDeleteRestore, DialogProfileForm, ProfileComponent} from './profile/profile.component';
 import {ProfileFormComponent} from './profile-form/profile-form.component';
 import {
   DialogContractDelete,
@@ -89,7 +83,7 @@ import {PartitionResolver} from "./resolver/partition.resolver";
 import {EquipmentResolver} from "./resolver/equipment.resolver";
 import {CategoryResolver} from "./resolver/category.resolver";
 import {ProfileResolver} from "./resolver/profile.resolver";
-import {CompanyComponent, DialogCompanyDelete, DialogCompanyForm} from './company/company.component';
+import {CompanyComponent, DialogCompanyDeleteRestore, DialogCompanyForm} from './company/company.component';
 import {CompanyResolver} from "./resolver/company.resolver";
 import {CompanyFormComponent} from './company-form/company-form.component';
 import {EquipmentReplaceFormComponent} from './equipment-replace-form/equipment-replace-form.component';
@@ -162,14 +156,12 @@ export function initializeApp(appInitService: AppInitService) {
     DialogEmployeeForm,
     DialogEmployeeDelete,
     DialogDepartmentForm,
-    DialogDepartmentDelete,
+    DialogDepartmentDeleteRestore,
     DialogCategoryForm,
-    DialogCategoryRestore,
-    DialogCategoryDelete,
+    DialogCategoryDeleteRestore,
     ProfileComponent,
     DialogProfileForm,
-    DialogProfileDelete,
-    DialogProfileRestore,
+    DialogProfileDeleteRestore,
     DialogEquipmentForm,
     DialogEquipmentDelete,
     DialogEquipmentTransferForm,
@@ -181,7 +173,7 @@ export function initializeApp(appInitService: AppInitService) {
     DialogContractUpdateForm,
     DialogContractDelete,
     DialogContractInputForm,
-    DialogCompanyDelete,
+    DialogCompanyDeleteRestore,
     DialogCompanyForm,
     HomeComponent,
     MainComponent,

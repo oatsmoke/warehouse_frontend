@@ -3,39 +3,44 @@ import {HttpClient} from "@angular/common/http";
 import {GlobalService} from "./global.service";
 
 export interface Company {
-    id: number
-    title: string
+  id: number
+  title: string
+  deleted: boolean
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class CompanyService {
 
-    constructor(private httpClient: HttpClient,
-                private globalService: GlobalService) {
-    }
+  constructor(private httpClient: HttpClient,
+              private globalService: GlobalService) {
+  }
 
-    create(title: string) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/company/create", {title})
-    }
+  create(title: string) {
+    return this.httpClient.post<Company>(this.globalService.API_URL + "/api/company/create", {title})
+  }
 
-    getById(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/company/getById", {id});
-    }
+  update(id: number, title: string) {
+    return this.httpClient.post<Company>(this.globalService.API_URL + "/api/company/update", {
+      id,
+      title
+    });
+  }
 
-    getAll() {
-        return this.httpClient.get<any>(this.globalService.API_URL + "/api/company/getAll");
-    }
+  delete(id: number) {
+    return this.httpClient.post<Company>(this.globalService.API_URL + "/api/company/delete", {id});
+  }
 
-    update(id: number, title: string) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/company/update", {
-            id,
-            title
-        });
-    }
+  restore(id: number) {
+    return this.httpClient.post<Company>(this.globalService.API_URL + "/api/company/restore", {id});
+  }
 
-    delete(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/company/delete", {id});
-    }
+  getAll(deleted: boolean) {
+    return this.httpClient.post<Company[]>(this.globalService.API_URL + "/api/company/getAll", deleted);
+  }
+
+  getById(id: number) {
+    return this.httpClient.post<Company>(this.globalService.API_URL + "/api/company/getById", {id});
+  }
 }

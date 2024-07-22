@@ -51,7 +51,7 @@ export class CategoryComponent implements OnInit {
   }
 
   dialogDeleteCategory(id: number) {
-    this.dialog.open(DialogCategoryDelete, {data: this.globalService.delete}).afterClosed().pipe(first()).subscribe(value => {
+    this.dialog.open(DialogCategoryDeleteRestore, {data: this.globalService.delete}).afterClosed().pipe(first()).subscribe(value => {
       if (value) {
         this.categoryService.delete(id).pipe(first()).subscribe({
           next: _ => {
@@ -67,7 +67,7 @@ export class CategoryComponent implements OnInit {
   }
 
   dialogRestoreCategory(id: number) {
-    this.dialog.open(DialogCategoryRestore, {data: this.globalService.restore}).afterClosed().pipe(first()).subscribe(value => {
+    this.dialog.open(DialogCategoryDeleteRestore, {data: this.globalService.restore}).afterClosed().pipe(first()).subscribe(value => {
       if (value) {
         this.categoryService.restore(id).pipe(first()).subscribe({
           next: _ => {
@@ -90,13 +90,7 @@ export class DialogCategoryForm {
 }
 
 @Component({
-  selector: 'dialog-category-delete', templateUrl: './dialog-category-delete.html'
+  selector: 'dialog-category-delete-restore', templateUrl: './dialog-category-delete-restore.html'
 })
-export class DialogCategoryDelete {
-}
-
-@Component({
-  selector: 'dialog-category-restore', templateUrl: './dialog-category-restore.html'
-})
-export class DialogCategoryRestore {
+export class DialogCategoryDeleteRestore {
 }
