@@ -6,7 +6,7 @@ import {Department, DepartmentService} from "../service/department.service";
 @Injectable({
   providedIn: 'root'
 })
-export class DepartmentResolver implements Resolve<any> {
+export class DepartmentResolver implements Resolve<Department[]> {
   constructor(private departmentService: DepartmentService) {
   }
 

@@ -6,7 +6,7 @@ import {Category, CategoryService} from "../service/category.service";
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryResolver implements Resolve<any> {
+export class CategoryResolver implements Resolve<Category[]> {
   constructor(private categoryService: CategoryService) {
   }
 

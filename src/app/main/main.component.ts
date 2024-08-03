@@ -35,7 +35,7 @@ export class MainComponent implements OnInit {
   }
 
   getEmployees() {
-    this.employeeService.getAll().pipe(first()).subscribe((value: any) => {
+    this.employeeService.getAll(false).pipe(first()).subscribe((value: any) => {
       this.employees = value
     })
   }

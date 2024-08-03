@@ -1,70 +1,81 @@
 <mat-toolbar>
-    Сотрудники
-    <button (click)="dialogCreateEmployee()" mat-icon-button>
-        <mat-icon title="Добавить сотрудника">add_circle</mat-icon>
-    </button>
+  Сотрудники
+  <button (click)="dialogCreateEmployee()" mat-icon-button>
+    <mat-icon title="Добавить сотрудника">add_circle</mat-icon>
+  </button>
 </mat-toolbar>
 <app-no-content *ngIf="!employees"></app-no-content>
 <table *ngIf="employees" [dataSource]="employees" mat-table>
-    <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell>Имя</th>
-        <td *matCellDef="let column" mat-cell>{{column.name}}</td>
-    </ng-container>
-    <ng-container matColumnDef="phone">
-        <th *matHeaderCellDef mat-header-cell>Телефон</th>
-        <td *matCellDef="let column" mat-cell>{{column.phone}}</td>
-    </ng-container>
-    <ng-container matColumnDef="email">
-        <th *matHeaderCellDef mat-header-cell>Почта</th>
-        <td *matCellDef="let column" mat-cell>{{column.email}}</td>
-    </ng-container>
-    <ng-container matColumnDef="registrationDate">
-        <th *matHeaderCellDef mat-header-cell>Зарегистрирован</th>
-        <td *matCellDef="let column" mat-cell>{{column.registrationDate * 1000|date:'HH:mm dd.MM.YYYY'}}</td>
-    </ng-container>
-    <ng-container matColumnDef="authorizationDate">
-        <th *matHeaderCellDef mat-header-cell>Последняя активность</th>
-        <td *matCellDef="let column" mat-cell>{{column.authorizationDate * 1000|date:'HH:mm dd.MM.YYYY'}}</td>
-    </ng-container>
-    <ng-container matColumnDef="control">
-        <th *matHeaderCellDef mat-header-cell></th>
-        <td *matCellDef="let column" class="rightPositionTable" mat-cell>
-            <button [matMenuTriggerFor]="options" mat-icon-button>
-                <mat-icon>expand_circle_down</mat-icon>
-            </button>
-            <mat-menu #options="matMenu">
-                <button (click)="activateEmployee(column.id)" *ngIf="!column.activate" mat-menu-item>
-                    Активировать
-                </button>
-                <button (click)="deactivateEmployee(column.id)" *ngIf="column.activate" mat-menu-item>
-                    Деактивировать
-                </button>
-                <button (click)="resetPasswordEmployee(column.id)" *ngIf="column.activate" mat-menu-item>
-                    Сбросить пароль
-                </button>
-                <button (click)="updateEmployee(column.id)" mat-menu-item>
-                    Изменить
-                </button>
-                <button [matMenuTriggerFor]="q" mat-menu-item>
-                    Роль
-                </button>
-                <button (click)="deleteEmployee(column.id)" mat-menu-item>
-                    Удалить
-                </button>
-            </mat-menu>
-            <mat-menu #q="matMenu">
-                <button (click)="changeRoleEmployee(column.id,'ADMIN')" [disabled]="column.role=='ADMIN'" mat-menu-item>
-                    Администратор
-                </button>
-                <button (click)="changeRoleEmployee(column.id,'CONTROL')" [disabled]="column.role=='CONTROL'" mat-menu-item>
-                    Управляющий
-                </button>
-                <button (click)="changeRoleEmployee(column.id,'USER')" [disabled]="column.role=='USER'" mat-menu-item>
-                    Пользователь
-                </button>
-            </mat-menu>
-        </td>
-    </ng-container>
-    <tr *matHeaderRowDef="columns" mat-header-row></tr>
-    <tr *matRowDef="let row; columns: columns;" mat-row></tr>
+  <ng-container matColumnDef="name">
+    <th *matHeaderCellDef mat-header-cell>Имя</th>
+    <td *matCellDef="let column" mat-cell>{{ column.name }}</td>
+  </ng-container>
+  <ng-container matColumnDef="phone">
+    <th *matHeaderCellDef mat-header-cell>Телефон</th>
+    <td *matCellDef="let column" mat-cell>{{ column.phone }}</td>
+  </ng-container>
+  <ng-container matColumnDef="email">
+    <th *matHeaderCellDef mat-header-cell>Почта</th>
+    <td *matCellDef="let column" mat-cell>{{ column.email }}</td>
+  </ng-container>
+  <ng-container matColumnDef="role">
+    <th *matHeaderCellDef mat-header-cell>Роль</th>
+    <td *matCellDef="let column" mat-cell>{{ column.role }}</td>
+  </ng-container>
+  <ng-container matColumnDef="registrationDate">
+    <th *matHeaderCellDef mat-header-cell>Зарегистрирован</th>
+    <td *matCellDef="let column" mat-cell>{{ column.registration_date|date:'HH:mm dd.MM.YYYY' }}</td>
+  </ng-container>
+  <ng-container matColumnDef="authorizationDate">
+    <th *matHeaderCellDef mat-header-cell>Последняя активность</th>
+    <td *matCellDef="let column" mat-cell>{{ column.authorization_date|date:'HH:mm dd.MM.YYYY' }}</td>
+  </ng-container>
+  <ng-container matColumnDef="deleted">
+    <th *matHeaderCellDef mat-header-cell>Удалено</th>
+    <td *matCellDef="let column" mat-cell>{{ column.deleted }}</td>
+  </ng-container>
+  <ng-container matColumnDef="control">
+    <th *matHeaderCellDef mat-header-cell></th>
+    <td *matCellDef="let column" class="rightPositionTable" mat-cell>
+      <button [matMenuTriggerFor]="options" mat-icon-button>
+        <mat-icon>expand_circle_down</mat-icon>
+      </button>
+      <mat-menu #options="matMenu">
+        <button (click)="activateEmployee(column.id)" *ngIf="!column.activate" mat-menu-item>
+          Активировать
+        </button>
+        <button (click)="deactivateEmployee(column.id)" *ngIf="column.activate" mat-menu-item>
+          Деактивировать
+        </button>
+        <button (click)="resetPasswordEmployee(column.id)" *ngIf="column.activate" mat-menu-item>
+          Сбросить пароль
+        </button>
+        <button (click)="dialogUpdateEmployee(column.id)" mat-menu-item>
+          Изменить
+        </button>
+        <button [matMenuTriggerFor]="q" mat-menu-item>
+          Роль
+        </button>
+        <button (click)="dialogDeleteEmployee(column.id)" *ngIf="!column.deleted" mat-menu-item>
+          Удалить
+        </button>
+        <button (click)="dialogRestoreEmployee(column.id)" *ngIf="column.deleted" mat-menu-item>
+          Восстановить
+        </button>
+      </mat-menu>
+      <mat-menu #q="matMenu">
+        <button (click)="changeRoleEmployee(column.id,'ADMIN')" [disabled]="column.role=='ADMIN'" mat-menu-item>
+          Администратор
+        </button>
+        <button (click)="changeRoleEmployee(column.id,'CONTROL')" [disabled]="column.role=='CONTROL'" mat-menu-item>
+          Управляющий
+        </button>
+        <button (click)="changeRoleEmployee(column.id,'USER')" [disabled]="column.role=='USER'" mat-menu-item>
+          Пользователь
+        </button>
+      </mat-menu>
+    </td>
+  </ng-container>
+  <tr *matHeaderRowDef="columns" mat-header-row></tr>
+  <tr *matRowDef="let row; columns: columns;" mat-row></tr>
 </table>

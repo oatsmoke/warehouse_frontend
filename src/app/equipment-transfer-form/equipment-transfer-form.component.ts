@@ -149,11 +149,11 @@ export class EquipmentTransferFormComponent implements OnInit {
                 this.employees = value
             })
         } else if (this.data.thisLocation.partition == "employee") {
-            this.employeeService.getAllButOne(Number(this.data.thisLocation.id)).pipe(first()).subscribe(value => {
+            this.employeeService.getAllButOne(Number(this.data.thisLocation.id),false).pipe(first()).subscribe(value => {
                 this.employees = value
             })
         } else {
-            this.employeeService.getAll().pipe(first()).subscribe(value => {
+            this.employeeService.getAll(false).pipe(first()).subscribe(value => {
                 this.employees = value
             })
         }

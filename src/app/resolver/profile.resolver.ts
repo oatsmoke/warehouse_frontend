@@ -6,7 +6,7 @@ import {Profile, ProfileService} from "../service/profile.service";
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileResolver implements Resolve<any> {
+export class ProfileResolver implements Resolve<Profile[]> {
   constructor(private profileService: ProfileService) {
   }
 

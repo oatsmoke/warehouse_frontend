@@ -4,87 +4,95 @@ import {GlobalService} from "./global.service";
 import {Department} from "./department.service";
 
 export interface Employee {
-    id: number
-    name: string
-    phone: string
-    email: string
-    registrationDate: Date
-    authorizationDate: Date
-    activate: boolean
-    hidden: boolean
-    department: Department
-    role: string
+  id: number
+  name: string
+  phone: string
+  email: string
+  registration_date: string
+  authorization_date: string
+  activate: boolean
+  hidden: boolean
+  department: Department
+  role: string
+  deleted: boolean
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class EmployeeService {
 
-    constructor(private httpClient: HttpClient,
-                private globalService: GlobalService) {
-    }
+  constructor(private httpClient: HttpClient,
+              private globalService: GlobalService) {
+  }
 
-    create(name: string, phone: string, email: string) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/create", {name, phone, email})
-    }
+  create(name: string, phone: string, email: string) {
+    return this.httpClient.post<Employee>(this.globalService.API_URL + "/api/employee/create", {name, phone, email})
+  }
 
-    getById(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/getById", {id})
-    }
+  update(id: number, name: string, phone: string, email: string) {
+    return this.httpClient.post<Employee>(this.globalService.API_URL + "/api/employee/update", {id, name, phone, email})
+  }
 
-    getByDepartment(ids: number[], id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/getByDepartment", {ids, id})
-    }
+  delete(id: number) {
+    return this.httpClient.post<Employee>(this.globalService.API_URL + "/api/employee/delete", {id})
+  }
 
-    getAll() {
-        return this.httpClient.get<any>(this.globalService.API_URL + "/api/employee/getAll")
-    }
+  restore(id: number) {
+    return this.httpClient.post<Employee>(this.globalService.API_URL + "/api/employee/restore", {id})
+  }
 
-    getFree() {
-        return this.httpClient.get<any>(this.globalService.API_URL + "/api/employee/getFree")
-    }
+  getAll(deleted: boolean) {
+    return this.httpClient.post<Employee[]>(this.globalService.API_URL + "/api/employee/getAll", deleted)
+  }
 
-    getAllButAuth() {
-        return this.httpClient.get<any>(this.globalService.API_URL + "/api/employee/getAllButAuth")
-    }
+  getAllButAuth(deleted: boolean) {
+    return this.httpClient.post<Employee[]>(this.globalService.API_URL + "/api/employee/getAllButAuth", deleted)
+  }
 
-    getAllButOne(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/getAllButOne", {id})
-    }
+  getAllButOne(id: number, deleted: boolean) {
+    return this.httpClient.post<Employee[]>(this.globalService.API_URL + "/api/employee/getAllButOne", {id, deleted})
+  }
 
-    addToDepartment(id: number, department: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/addToDepartment", {
-            id,
-            department: {id: department}
-        })
-    }
+  getById(id: number) {
+    return this.httpClient.post<Employee>(this.globalService.API_URL + "/api/employee/getById", {id})
+  }
 
-    removeFromDepartment(idDepartment: number, idEmployee: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/removeFromDepartment", [idDepartment, idEmployee])
-    }
+  getFree() {
+    return this.httpClient.post<Employee[]>(this.globalService.API_URL + "/api/employee/getFree", "")
+  }
 
-    update(id: number, name: string, phone: string, email: string) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/update", {id, name, phone, email})
-    }
+  getByDepartment(ids: number[], departmentId: number) {
+    return this.httpClient.post<Employee[]>(this.globalService.API_URL + "/api/employee/getByDepartment", {
+      ids,
+      departmentId
+    })
+  }
 
-    delete(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/delete", {id})
-    }
+  addToDepartment(id: number, departmentId: number) {
+    return this.httpClient.post<Employee>(this.globalService.API_URL + "/api/employee/addToDepartment", {
+      id,
+      department: {id: departmentId}
+    })
+  }
 
-    activate(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/activate", {id})
-    }
+  removeFromDepartment(id: number, departmentId: number) {
+    return this.httpClient.post<Employee>(this.globalService.API_URL + "/api/employee/removeFromDepartment", [id, departmentId])
+  }
 
-    deactivate(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/deactivate", {id})
-    }
+  activate(id: number) {
+    return this.httpClient.post<Employee>(this.globalService.API_URL + "/api/employee/activate", {id})
+  }
 
-    resetPassword(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/resetPassword", {id})
-    }
+  deactivate(id: number) {
+    return this.httpClient.post<Employee>(this.globalService.API_URL + "/api/employee/deactivate", {id})
+  }
 
-    changeRole(id: number, role: string) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/employee/changeRole", {id, role})
-    }
+  resetPassword(id: number) {
+    return this.httpClient.post<Employee>(this.globalService.API_URL + "/api/employee/resetPassword", {id})
+  }
+
+  changeRole(id: number, role: string) {
+    return this.httpClient.post<Employee>(this.globalService.API_URL + "/api/employee/changeRole", {id, role})
+  }
 }

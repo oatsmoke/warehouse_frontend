@@ -41,7 +41,7 @@ import {AuthFormComponent} from './auth-form/auth-form.component';
 import {HomeComponent} from './home/home.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {DialogContractCreateForm, DialogContractInputForm, MainComponent} from './main/main.component';
-import {DialogEmployeeDelete, DialogEmployeeForm, EmployeeComponent} from './employee/employee.component';
+import {DialogEmployeeDeleteRestore, DialogEmployeeForm, EmployeeComponent} from './employee/employee.component';
 import {EmployeeFormComponent} from './employee-form/employee-form.component';
 import {ConfirmComponent} from './confirm/confirm.component';
 import {TokenInterceptor} from "./token.interceptor";
@@ -154,7 +154,7 @@ export function initializeApp(appInitService: AppInitService) {
   declarations: [
     AuthFormComponent,
     DialogEmployeeForm,
-    DialogEmployeeDelete,
+    DialogEmployeeDeleteRestore,
     DialogDepartmentForm,
     DialogDepartmentDeleteRestore,
     DialogCategoryForm,

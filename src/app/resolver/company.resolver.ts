@@ -6,7 +6,7 @@ import {Company, CompanyService} from "../service/company.service";
 @Injectable({
   providedIn: 'root'
 })
-export class CompanyResolver implements Resolve<any> {
+export class CompanyResolver implements Resolve<Company[]> {
   constructor(private companyService: CompanyService) {
   }
 

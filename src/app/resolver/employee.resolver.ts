@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
+import {Resolve} from '@angular/router';
 import {Observable} from 'rxjs';
-import {EmployeeService} from "../service/employee.service";
+import {Employee, EmployeeService} from "../service/employee.service";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-export class EmployeeResolver implements Resolve<any> {
-    constructor(private employeeService: EmployeeService) {
-    }
+export class EmployeeResolver implements Resolve<Employee[]> {
+  constructor(private employeeService: EmployeeService) {
+  }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-        return this.employeeService.getAllButAuth()
-    }
+  resolve(): Observable<Employee[]> {
+    return this.employeeService.getAllButAuth(true)
+  }
 }
