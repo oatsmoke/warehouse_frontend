@@ -76,15 +76,15 @@ export class EquipmentTransferFormComponent implements OnInit {
     }
 
     getEquipmentsById() {
-        this.equipmentService.getByIds(this.data.pickEquipments).pipe(first()).subscribe(value => {
+        this.locationService.getByIds(this.data.pickEquipments).pipe(first()).subscribe(value => {
             this.equipments = value
             if (this.data.thisLocation.partition == "department") {
                 let count = 0
                 for (let e of this.equipments) {
-                    if (e.toEmployee.id) {
+                    if (e.to_employee.id) {
                         count++
-                        if (!this.employeeSkip.includes(e.toEmployee.id)) {
-                            this.employeeSkip.push(e.toEmployee.id)
+                        if (!this.employeeSkip.includes(e.to_employee.id)) {
+                            this.employeeSkip.push(e.to_employee.id)
                         }
                     }
                 }
@@ -199,7 +199,7 @@ export class EquipmentTransferFormComponent implements OnInit {
             let thisLocation: string
             if (this.data.thisLocation.id == 0) {
                 thisLocation = "storage"
-            } else if (e.toEmployee.id && this.data.thisLocation.id == value.toDepartment) {
+            } else if (e.to_employee.id && this.data.thisLocation.id == value.toDepartment) {
                 thisLocation = "employee"
                 value.inDepartment = true
             } else {
@@ -212,17 +212,17 @@ export class EquipmentTransferFormComponent implements OnInit {
                 toDepartment = value.toDepartment
             }
             let request: RequestLocation = {
-                date: new Date(value.date).getTime() / 1000,
-                equipmentId: e.equipment.id,
+                date: new Date(value.date).toDateString(),
+                equipment_id: e.equipment.id,
                 way: "transfer",
-                thisLocation: thisLocation,
+                this_location: thisLocation,
                 where: value.where,
-                inDepartment: value.inDepartment,
+                in_department: value.inDepartment,
                 company: e.company.id,
-                toDepartment: toDepartment,
-                toEmployee: value.toEmployee,
-                toContract: this.contractId,
-                transferType: value.transferType,
+                to_department: toDepartment,
+                to_employee: value.toEmployee,
+                to_contract: this.contractId,
+                transfer_type: value.transferType,
                 price: Number(value.price)
             }
             requestLocation.push(request)

@@ -13,18 +13,18 @@ export class EquipmentResolver implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     let locationEquipment: LocationEquipment = {
-      toDepartment: {id: 0},
-      toEmployee: {id: 0},
-      toContract: {id: 0}
+      to_department: {id: 0},
+      to_employee: {id: 0},
+      to_contract: {id: 0}
     }
     if (route.paramMap.get("partition") == "department") {
-      locationEquipment.toDepartment.id = Number(route.paramMap.get("id"))
+      locationEquipment.to_department.id = Number(route.paramMap.get("id"))
     }
     if (route.paramMap.get("partition") == "employee") {
-      locationEquipment.toEmployee.id = Number(route.paramMap.get("id"))
+      locationEquipment.to_employee.id = Number(route.paramMap.get("id"))
     }
     if (route.paramMap.get("partition") == "contract") {
-      locationEquipment.toContract.id = Number(route.paramMap.get("id"))
+      locationEquipment.to_contract.id = Number(route.paramMap.get("id"))
     }
     return this.equipmentService.getByLocation(locationEquipment)
   }

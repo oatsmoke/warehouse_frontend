@@ -56,7 +56,7 @@ export class EquipmentReplaceFormComponent implements OnInit {
     }
 
     getEquipmentsById() {
-        this.equipmentService.getByIds(this.data.pickEquipments).pipe(first()).subscribe(value => {
+        this.locationService.getByIds(this.data.pickEquipments).pipe(first()).subscribe(value => {
             this.equipmentFromContract = value[0]
 
         })
@@ -75,9 +75,9 @@ export class EquipmentReplaceFormComponent implements OnInit {
 
     getEquipmentsByDepartment(id: number) {
         let locationEquipment: LocationEquipment = {
-            toDepartment: {id: id},
-            toEmployee: {id: 0},
-            toContract: {id: 0}
+            to_department: {id: id},
+            to_employee: {id: 0},
+            to_contract: {id: 0}
         }
         this.equipmentService.getByLocation(locationEquipment).pipe(first()).subscribe((value: any) => {
             if (value == null) {
@@ -93,13 +93,13 @@ export class EquipmentReplaceFormComponent implements OnInit {
     }
 
     filter(value: string): ThisEquipment[] {
-        return this.equipments.filter(option => option.equipment.serialNumber.toLowerCase().includes(value))
+        return this.equipments.filter(option => option.equipment.serial_number.toLowerCase().includes(value))
     }
 
     searchEquipment() {
         let found = false
         for (let equipment of this.equipments) {
-            if (equipment.equipment.serialNumber == this.serialNumber.value) {
+            if (equipment.equipment.serial_number == this.serialNumber.value) {
                 this.equipmentToContract = equipment
                 found = true
                 break
@@ -118,31 +118,31 @@ export class EquipmentReplaceFormComponent implements OnInit {
         let requestFromContract: RequestLocation
         let requestToContract: RequestLocation
         requestFromContract = {
-            date: new Date(value.date).getTime() / 1000,
-            equipmentId: this.equipmentFromContract.equipment.id,
+            date: new Date(value.date).toDateString(),
+            equipment_id: this.equipmentFromContract.equipment.id,
             way: "replace",
-            thisLocation: this.data.thisLocation.partition,
+            this_location: this.data.thisLocation.partition,
             where: "department",
-            inDepartment: false,
+            in_department: false,
             company: this.equipmentFromContract.company.id,
-            toDepartment: this.equipmentToContract.toDepartment.id,
-            toEmployee: this.equipmentToContract.toEmployee.id,
-            toContract: 0,
-            transferType: "",
+            to_department: this.equipmentToContract.to_department.id,
+            to_employee: this.equipmentToContract.to_employee.id,
+            to_contract: 0,
+            transfer_type: "",
             price: 0
         }
         requestToContract = {
-            date: new Date(value.date).getTime() / 1000,
-            equipmentId: this.equipmentToContract.equipment.id,
+            date: new Date(value.date).toDateString(),
+            equipment_id: this.equipmentToContract.equipment.id,
             way: "replace",
-            thisLocation: "department",
+            this_location: "department",
             where: this.data.thisLocation.partition,
-            inDepartment: false,
+            in_department: false,
             company: this.equipmentToContract.company.id,
-            toDepartment: 0,
-            toEmployee: 0,
-            toContract: Number(this.data.thisLocation.id),
-            transferType: this.equipmentFromContract.transferType,
+            to_department: 0,
+            to_employee: 0,
+            to_contract: Number(this.data.thisLocation.id),
+            transfer_type: this.equipmentFromContract.transfer_type,
             price: Number(this.equipmentFromContract.price)
         }
         requestLocation.push(requestFromContract, requestToContract)

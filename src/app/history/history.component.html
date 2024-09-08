@@ -1,79 +1,79 @@
-{{location.date * 1000|date:'dd.MM.YYYY'}}
-{{location.employee.name}}
+{{ location.date|date:'dd.MM.YYYY' }}
+{{ location.employee.name }}
 <br>
 <div [ngSwitch]="code">
-    <ng-template ngSwitchCase="ADD_TO_STORAGE">
-        Добавлено на склад
-    </ng-template>
-    <ng-template ngSwitchCase="STORAGE_TO_DEPARTMENT">
-        Передано в отдел<br>
-        {{location.toDepartment.title}}
-    </ng-template>
-    <ng-template ngSwitchCase="STORAGE_TO_EMPLOYEE">
-        Передано сотруднику<br>
-        {{location.toEmployee.name}}
-    </ng-template>
-    <ng-template ngSwitchCase="STORAGE_TO_CONTRACT">
-        Передано абоненту<br>
-        {{location.toContract.number}}({{location.toContract.address}})<br>
-        {{transferTypeConvert(location.transferType)}}({{location.price}})
-    </ng-template>
-    <ng-template ngSwitchCase="DEPARTMENT_TO_STORAGE">
-        Передано на склад
-    </ng-template>
-    <ng-template ngSwitchCase="DEPARTMENT_TO_DEPARTMENT">
-        Передано в отдел<br>
-        {{location.toDepartment.title}}
-    </ng-template>
-    <ng-template ngSwitchCase="DEPARTMENT_TO_EMPLOYEE">
-        Передано сотруднику<br>
-        {{location.toEmployee.name}}
-    </ng-template>
-    <ng-template ngSwitchCase="DEPARTMENT_TO_CONTRACT">
-        Передано абоненту<br>
-        {{location.toContract.number}}({{location.toContract.address}})<br>
-        {{transferTypeConvert(location.transferType)}}({{location.price}})
-    </ng-template>
-    <ng-template ngSwitchCase="EMPLOYEE_TO_STORAGE">
-        Передано на склад
-    </ng-template>
-    <ng-template ngSwitchCase="EMPLOYEE_TO_DEPARTMENT">
-        Передано в отдел<br>
-        {{location.toDepartment.title}}
-    </ng-template>
-    <ng-template ngSwitchCase="EMPLOYEE_TO_CONTRACT">
-        Передано абоненту<br>
-        {{location.toContract.number}}({{location.toContract.address}})<br>
-        {{transferTypeConvert(location.transferType)}}({{location.price}})
-    </ng-template>
-    <ng-template ngSwitchCase="EMPLOYEE_TO_EMPLOYEE">
-        Передано сотруднику<br>
-        {{location.toEmployee.name}}
-    </ng-template>
-    <ng-template ngSwitchCase="DEPARTMENT_TO_EMPLOYEE_IN_DEPARTMENT">
-        Передано в отделе {{location.toDepartment.title}}<br>
-        сотруднику {{location.toEmployee.name}}
-    </ng-template>
-    <ng-template ngSwitchCase="EMPLOYEE_TO_DEPARTMENT_IN_DEPARTMENT">
-        Передано в отдел<br>
-        {{location.toDepartment.title}}
-    </ng-template>
-    <ng-template ngSwitchCase="EMPLOYEE_TO_EMPLOYEE_IN_DEPARTMENT">
-        Передано в отделе {{location.toDepartment.title}}<br>
-        сотруднику {{location.toEmployee.name}}
-    </ng-template>
-    <ng-template ngSwitchCase="CONTRACT_TO_STORAGE">
-        Передано на склад
-    </ng-template>
-    <ng-template ngSwitchCase="CONTRACT_TO_DEPARTMENT">
-        Передано в отдел<br>
-        {{location.toDepartment.title}}
-    </ng-template>
-    <ng-template ngSwitchCase="CONTRACT_TO_EMPLOYEE">
-        Передано сотруднику<br>
-        {{location.toEmployee.name}}
-    </ng-template>
-    <ng-template ngSwitchDefault>
-        {{location.code}}
-    </ng-template>
+  <ng-template ngSwitchCase="ADD_TO_STORAGE">
+    Добавлено на склад
+  </ng-template>
+  <ng-template ngSwitchCase="STORAGE_TO_DEPARTMENT">
+    Передано в отдел<br>
+    {{ location.to_department.title }}
+  </ng-template>
+  <ng-template ngSwitchCase="STORAGE_TO_EMPLOYEE">
+    Передано сотруднику<br>
+    {{ location.to_employee.name }}
+  </ng-template>
+  <ng-template ngSwitchCase="STORAGE_TO_CONTRACT">
+    Передано абоненту<br>
+    {{ location.to_contract.number }}({{ location.to_contract.address }})<br>
+    {{ transferTypeConvert(location.transfer_type) }}({{ location.price }})
+  </ng-template>
+  <ng-template ngSwitchCase="DEPARTMENT_TO_STORAGE">
+    Передано на склад
+  </ng-template>
+  <ng-template ngSwitchCase="DEPARTMENT_TO_DEPARTMENT">
+    Передано в отдел<br>
+    {{ location.to_department.title }}
+  </ng-template>
+  <ng-template ngSwitchCase="DEPARTMENT_TO_EMPLOYEE">
+    Передано сотруднику<br>
+    {{ location.to_employee.name }}
+  </ng-template>
+  <ng-template ngSwitchCase="DEPARTMENT_TO_CONTRACT">
+    Передано абоненту<br>
+    {{ location.to_contract.number }}({{ location.to_contract.address }})<br>
+    {{ transferTypeConvert(location.transfer_type) }}({{ location.price }})
+  </ng-template>
+  <ng-template ngSwitchCase="EMPLOYEE_TO_STORAGE">
+    Передано на склад
+  </ng-template>
+  <ng-template ngSwitchCase="EMPLOYEE_TO_DEPARTMENT">
+    Передано в отдел<br>
+    {{ location.to_department.title }}
+  </ng-template>
+  <ng-template ngSwitchCase="EMPLOYEE_TO_CONTRACT">
+    Передано абоненту<br>
+    {{ location.to_contract.number }}({{ location.to_contract.address }})<br>
+    {{ transferTypeConvert(location.transfer_type) }}({{ location.price }})
+  </ng-template>
+  <ng-template ngSwitchCase="EMPLOYEE_TO_EMPLOYEE">
+    Передано сотруднику<br>
+    {{ location.to_employee.name }}
+  </ng-template>
+  <ng-template ngSwitchCase="DEPARTMENT_TO_EMPLOYEE_IN_DEPARTMENT">
+    Передано в отделе {{ location.to_department.title }}<br>
+    сотруднику {{ location.to_employee.name }}
+  </ng-template>
+  <ng-template ngSwitchCase="EMPLOYEE_TO_DEPARTMENT_IN_DEPARTMENT">
+    Передано в отдел<br>
+    {{ location.to_department.title }}
+  </ng-template>
+  <ng-template ngSwitchCase="EMPLOYEE_TO_EMPLOYEE_IN_DEPARTMENT">
+    Передано в отделе {{ location.to_department.title }}<br>
+    сотруднику {{ location.to_employee.name }}
+  </ng-template>
+  <ng-template ngSwitchCase="CONTRACT_TO_STORAGE">
+    Передано на склад
+  </ng-template>
+  <ng-template ngSwitchCase="CONTRACT_TO_DEPARTMENT">
+    Передано в отдел<br>
+    {{ location.to_department.title }}
+  </ng-template>
+  <ng-template ngSwitchCase="CONTRACT_TO_EMPLOYEE">
+    Передано сотруднику<br>
+    {{ location.to_employee.name }}
+  </ng-template>
+  <ng-template ngSwitchDefault>
+    {{ location.code }}
+  </ng-template>
 </div>

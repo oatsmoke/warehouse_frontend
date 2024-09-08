@@ -9,7 +9,7 @@
 <form [formGroup]="replaceForm">
     <mat-chip-list>
         <mat-chip *ngIf="equipmentFromContract">
-            {{equipmentFromContract.equipment.profile.title}}({{equipmentFromContract.equipment.serialNumber}})
+            {{equipmentFromContract.equipment.profile.title}}({{equipmentFromContract.equipment.serial_number}})
         </mat-chip>
     </mat-chip-list>
     <mat-form-field>
@@ -35,8 +35,8 @@
                type="text">
         <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let equipment of filteredEquipments|async"
-                        [value]="equipment.equipment.serialNumber">
-                {{equipment.equipment.profile.title}}({{equipment.equipment.serialNumber}})
+                        [value]="equipment.equipment.serial_number">
+                {{equipment.equipment.profile.title}}({{equipment.equipment.serial_number}})
             </mat-option>
         </mat-autocomplete>
         <mat-error *ngIf="serialNumber.invalid">{{inputErrorMessage(serialNumber)}}</mat-error>

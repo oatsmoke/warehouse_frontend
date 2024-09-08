@@ -89,7 +89,6 @@ import {CompanyFormComponent} from './company-form/company-form.component';
 import {EquipmentReplaceFormComponent} from './equipment-replace-form/equipment-replace-form.component';
 import {AccessGuard} from "./access.guard";
 import {AppInitService} from "./service/app-init.service";
-import {ApiServerErrorComponent} from './api-server-error/api-server-error.component';
 import {EquipmentReportFormComponent} from './equipment-report-form/equipment-report-form.component';
 
 const mainRoutes: Routes = [
@@ -134,7 +133,6 @@ const mainRoutes: Routes = [
 ]
 
 const appRoutes: Routes = [
-  {path: "api-server-error", component: ApiServerErrorComponent},
   {path: "no-access", component: AuthFormComponent},
   {
     path: "",
@@ -198,7 +196,6 @@ export function initializeApp(appInitService: AppInitService) {
     CompanyComponent,
     CompanyFormComponent,
     EquipmentReplaceFormComponent,
-    ApiServerErrorComponent,
     EquipmentReportFormComponent
   ],
   imports: [

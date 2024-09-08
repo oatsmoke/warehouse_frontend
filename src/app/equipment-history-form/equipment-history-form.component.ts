@@ -24,9 +24,9 @@ export class EquipmentHistoryFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.equipmentService.getById(this.data.id).pipe(first()).subscribe(value => {
+        this.locationService.getById(this.data.id).pipe(first()).subscribe(value => {
             this.equipment = value
-            this.head = this.equipment.equipment.profile.title + " | " + this.equipment.equipment.serialNumber + " | " + this.equipment.company.title
+            this.head = this.equipment.equipment.profile.title + " | " + this.equipment.equipment.serial_number + " | " + this.equipment.company.title
         })
         this.locationService.getHistory(this.data.id).pipe(first()).subscribe(value => {
             this.history = value

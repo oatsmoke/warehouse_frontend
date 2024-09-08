@@ -3,17 +3,17 @@ import {HttpClient} from "@angular/common/http";
 import {GlobalService} from "./global.service";
 
 export interface RequestLocation {
-    date: number
-    equipmentId: number
+    date: string
+    equipment_id: number
     way: string
-    thisLocation: string
+    this_location: string
     where: string
-    inDepartment: boolean
+    in_department: boolean
     company: number
-    toDepartment: number
-    toEmployee: number
-    toContract: number
-    transferType: string
+    to_department: number
+    to_employee: number
+    to_contract: number
+    transfer_type: string
     price: number
 }
 
@@ -23,9 +23,9 @@ export interface ThisLocation {
 }
 
 export interface LocationEquipment {
-    toDepartment: { id: number }
-    toEmployee: { id: number }
-    toContract: { id: number }
+    to_department: { id: number }
+    to_employee: { id: number }
+    to_contract: { id: number }
 }
 
 @Injectable({
@@ -48,4 +48,11 @@ export class LocationService {
     delete(id: number) {
         return this.httpClient.post<any>(this.globalService.API_URL + "/api/location/delete", {id});
     }
+
+  getById(id: number) {
+      return this.httpClient.post<any>(this.globalService.API_URL + "/api/equipment/getById", {id})
+    }
+  getByIds(id: number) {
+    return this.httpClient.post<any>(this.globalService.API_URL + "/api/equipment/getById", {id})
+  }
 }

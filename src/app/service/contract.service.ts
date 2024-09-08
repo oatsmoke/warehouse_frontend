@@ -3,37 +3,41 @@ import {HttpClient} from "@angular/common/http";
 import {GlobalService} from "./global.service";
 
 export interface Contract {
-    id: number
-    number: string
-    address: string
+  id: number
+  number: string
+  address: string
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ContractService {
 
-    constructor(private httpClient: HttpClient,
-                private globalService: GlobalService) {
-    }
+  constructor(private httpClient: HttpClient,
+              private globalService: GlobalService) {
+  }
 
-    create(number: number, address: string) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/contract/create", {number, address})
-    }
+  create(number: number, address: string) {
+    return this.httpClient.post<Contract>(this.globalService.API_URL + "/api/contract/create", {number, address})
+  }
 
-    getById(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/contract/getById", {id});
-    }
+  update(id: number, number: number, address: string) {
+    return this.httpClient.post<Contract>(this.globalService.API_URL + "/api/contract/update", {id, number, address});
+  }
 
-    getAll() {
-        return this.httpClient.get<any>(this.globalService.API_URL + "/api/contract/getAll");
-    }
+  delete(id: number) {
+    return this.httpClient.post<Contract>(this.globalService.API_URL + "/api/contract/delete", {id});
+  }
 
-    update(id: number, number: number, address: string) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/contract/update", {id, number, address});
-    }
+  restore(id: number) {
+    return this.httpClient.post<Contract>(this.globalService.API_URL + "/api/contract/restore", {id});
+  }
 
-    delete(id: number) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/api/contract/delete", {id});
-    }
+  getAll() {
+    return this.httpClient.get<Contract[]>(this.globalService.API_URL + "/api/contract/getAll");
+  }
+
+  getById(id: number) {
+    return this.httpClient.post<Contract>(this.globalService.API_URL + "/api/contract/getById", {id});
+  }
 }

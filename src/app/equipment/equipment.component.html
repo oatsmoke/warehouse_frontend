@@ -34,7 +34,7 @@
     <ng-container matColumnDef="serialNumber">
         <th *matHeaderCellDef mat-header-cell>Серийный номер</th>
         <td (click)="pick(column.equipment.id)" *matCellDef="let column" mat-cell>
-            {{ column.equipment.serialNumber }}
+            {{ column.equipment.serial_number }}
         </td>
     </ng-container>
     <ng-container matColumnDef="category">
@@ -57,11 +57,11 @@
                     Склад
                 </ng-template>
                 <ng-template ngSwitchCase="Абонент">
-                    {{ column.toContract.number }}
+                    {{ column.to_contract.number }}
                 </ng-template>
                 <ng-template ngSwitchDefault>
-                    <div *ngIf="column.toDepartment.title">{{ column.toDepartment.title }}</div>
-                    <div *ngIf="column.toEmployee.name">{{ column.toEmployee.name }}</div>
+                    <div *ngIf="column.to_department.title">{{ column.to_department.title }}</div>
+                    <div *ngIf="column.to_employee.name">{{ column.to_employee.name }}</div>
                 </ng-template>
             </div>
         </td>

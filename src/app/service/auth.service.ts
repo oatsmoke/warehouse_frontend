@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {GlobalService} from "./global.service";
+import {Employee} from "./employee.service";
 
 @Injectable({
     providedIn: 'root'
@@ -13,11 +14,11 @@ export class AuthService {
     }
 
     singIn(login: string, password: string) {
-        return this.httpClient.post<any>(this.globalService.API_URL + "/auth/sing-in", {login, password})
+        return this.httpClient.post<Employee>(this.globalService.API_URL + "/auth/sing-in", {login, password})
     }
 
     getUser() {
-        return this.httpClient.get<any>(this.globalService.API_URL + "/api/getUser")
+        return this.httpClient.get<Employee>(this.globalService.API_URL + "/api/getUser")
     }
 
     exit() {

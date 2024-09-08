@@ -19,7 +19,7 @@ export class GlobalService {
   }
 
   msg(str: string) {
-    this.snackBar.open(str, "", {duration: 3000})
+    this.snackBar.open(str, "", {duration: 5000})
   }
 
   searchContract(input: FormControl, contracts: Contract[]): number {

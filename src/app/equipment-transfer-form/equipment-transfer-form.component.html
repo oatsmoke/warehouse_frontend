@@ -10,7 +10,7 @@
     <mat-chip-list>
         <mat-chip (removed)="cancel(equipment.equipment.id)" *ngFor="let equipment of equipments"
                   id="equipment{{equipment.equipment.id}}">
-            {{equipment.equipment.profile.title}}({{equipment.equipment.serialNumber}})
+            {{equipment.equipment.profile.title}}({{equipment.equipment.serial_number}})
             <button matChipRemove>
                 <mat-icon>remove_circle</mat-icon>
             </button>
