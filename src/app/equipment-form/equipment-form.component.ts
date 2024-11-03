@@ -10,10 +10,6 @@ import {Company, CompanyService} from "../service/company.service";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 
-// export interface SerialNumber {
-//   value: string;
-// }
-
 @Component({
   selector: 'app-equipment-form',
   templateUrl: './equipment-form.component.html',
@@ -29,9 +25,6 @@ export class EquipmentFormComponent implements OnInit {
   pattern = /^[a-zA-Z0-9]+$/
   date = new FormControl(
     new Date(),
-    // new Date().getFullYear(),
-    // new Date().getMonth(),
-    // new Date().getDate()),
     Validators.required)
   company = new FormControl("", Validators.required)
   serialNumber = new FormControl("", [
@@ -59,8 +52,6 @@ export class EquipmentFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let dt: Date = new Date();
-    console.log("Date = " + dt);
     this.profileService.getAll(false).pipe(first()).subscribe((value: any) => {
       this.profiles = value
     })
@@ -83,7 +74,6 @@ export class EquipmentFormComponent implements OnInit {
   }
 
   ok() {
-    console.log(this.serialNumbers)
     if (this.data.update == null) {
       this.create()
     } else {
@@ -106,7 +96,7 @@ export class EquipmentFormComponent implements OnInit {
     }
     const value = this.equipmentForm.value
     let requestLocation: RequestLocation[] = [{
-      date: new Date(value.date).toDateString(),
+      date: value.date,
       equipment_id: 0,
       way: "transfer",
       this_location: "storage",
@@ -184,5 +174,4 @@ export class EquipmentFormComponent implements OnInit {
       this.serialNumbers.splice(index, 1)
     }
   }
-
 }

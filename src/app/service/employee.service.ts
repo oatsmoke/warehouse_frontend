@@ -46,6 +46,10 @@ export class EmployeeService {
     return this.httpClient.post<Employee[]>(this.globalService.API_URL + "/api/employee/getAll", deleted)
   }
 
+  getAllShort(deleted: boolean) {
+    return this.httpClient.post<Employee[]>(this.globalService.API_URL + "/api/employee/getAllShort", deleted)
+  }
+
   getAllButAuth(deleted: boolean) {
     return this.httpClient.post<Employee[]>(this.globalService.API_URL + "/api/employee/getAllButAuth", deleted)
   }
@@ -65,7 +69,7 @@ export class EmployeeService {
   getByDepartment(ids: number[], departmentId: number) {
     return this.httpClient.post<Employee[]>(this.globalService.API_URL + "/api/employee/getByDepartment", {
       ids,
-      departmentId
+      department_id: departmentId
     })
   }
 

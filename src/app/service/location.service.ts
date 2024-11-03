@@ -52,7 +52,7 @@ export class LocationService {
   getById(id: number) {
       return this.httpClient.post<any>(this.globalService.API_URL + "/api/equipment/getById", {id})
     }
-  getByIds(id: number) {
-    return this.httpClient.post<any>(this.globalService.API_URL + "/api/equipment/getById", {id})
+  getByIds(ids: number) {
+    return this.httpClient.post<any>(this.globalService.API_URL + "/api/location/getByIds", ids)
   }
 }

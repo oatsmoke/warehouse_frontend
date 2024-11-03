@@ -153,7 +153,7 @@ export class EquipmentTransferFormComponent implements OnInit {
                 this.employees = value
             })
         } else {
-            this.employeeService.getAll(false).pipe(first()).subscribe(value => {
+            this.employeeService.getAllShort(false).pipe(first()).subscribe(value => {
                 this.employees = value
             })
         }

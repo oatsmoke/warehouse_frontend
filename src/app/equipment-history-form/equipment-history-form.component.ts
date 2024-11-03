@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {first} from "rxjs";
-import {EquipmentService, ThisEquipment} from "../service/equipment.service";
+import {Equipment, EquipmentService, ThisEquipment} from "../service/equipment.service";
 import {LocationService} from "../service/location.service";
 import {GlobalService} from "../service/global.service";
 
@@ -14,7 +14,7 @@ export class EquipmentHistoryFormComponent implements OnInit {
     head = ""
     history: ThisEquipment[] = []
     first: ThisEquipment | undefined
-    equipment!: ThisEquipment
+    equipment!: Equipment
     onlyOne = false
 
     constructor(private equipmentService: EquipmentService,
@@ -24,9 +24,9 @@ export class EquipmentHistoryFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.locationService.getById(this.data.id).pipe(first()).subscribe(value => {
-            this.equipment = value
-            this.head = this.equipment.equipment.profile.title + " | " + this.equipment.equipment.serial_number + " | " + this.equipment.company.title
+        this.equipmentService.getByIds([this.data.id]).pipe(first()).subscribe(value => {
+            this.equipment = value[0]
+            this.head = this.equipment.profile.title + " | " + this.equipment.serial_number
         })
         this.locationService.getHistory(this.data.id).pipe(first()).subscribe(value => {
             this.history = value
