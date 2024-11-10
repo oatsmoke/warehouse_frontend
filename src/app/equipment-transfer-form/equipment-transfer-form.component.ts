@@ -160,7 +160,7 @@ export class EquipmentTransferFormComponent implements OnInit {
     }
 
     contractList() {
-        this.contractService.getAll().subscribe(value => {
+        this.contractService.getAll(false).subscribe(value => {
             this.contracts = value
         })
         this.filteredContracts = this.toContract.valueChanges.pipe(
@@ -223,7 +223,7 @@ export class EquipmentTransferFormComponent implements OnInit {
                 to_employee: value.toEmployee,
                 to_contract: this.contractId,
                 transfer_type: value.transferType,
-                price: Number(value.price)
+                price: value.price
             }
             requestLocation.push(request)
         }

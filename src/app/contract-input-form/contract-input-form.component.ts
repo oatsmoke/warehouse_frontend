@@ -30,7 +30,7 @@ export class ContractInputFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.contractService.getAll().subscribe(value => {
+        this.contractService.getAll(false).subscribe(value => {
             this.contracts = value
         })
         this.filteredContracts = this.number.valueChanges.pipe(

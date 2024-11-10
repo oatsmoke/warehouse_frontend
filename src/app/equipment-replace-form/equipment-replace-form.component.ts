@@ -129,7 +129,7 @@ export class EquipmentReplaceFormComponent implements OnInit {
             to_employee: this.equipmentToContract.to_employee.id,
             to_contract: 0,
             transfer_type: "",
-            price: 0
+            price: ""
         }
         requestToContract = {
             date: new Date(value.date).toDateString(),
@@ -143,7 +143,7 @@ export class EquipmentReplaceFormComponent implements OnInit {
             to_employee: 0,
             to_contract: Number(this.data.thisLocation.id),
             transfer_type: this.equipmentFromContract.transfer_type,
-            price: Number(this.equipmentFromContract.price)
+            price: this.equipmentFromContract.price
         }
         requestLocation.push(requestFromContract, requestToContract)
         this.locationService.transferTo(requestLocation).pipe(first()).subscribe({

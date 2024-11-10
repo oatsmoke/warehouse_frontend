@@ -107,7 +107,7 @@ export class EquipmentFormComponent implements OnInit {
       to_employee: toEmployee,
       to_contract: toContract,
       transfer_type: "",
-      price: 0
+      price: ""
     }]
     let completedRequests = 0;
     const totalRequests = this.serialNumbers.length;

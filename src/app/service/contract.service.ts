@@ -33,8 +33,8 @@ export class ContractService {
     return this.httpClient.post<Contract>(this.globalService.API_URL + "/api/contract/restore", {id});
   }
 
-  getAll() {
-    return this.httpClient.get<Contract[]>(this.globalService.API_URL + "/api/contract/getAll");
+  getAll(deleted: boolean) {
+    return this.httpClient.post<Contract[]>(this.globalService.API_URL + "/api/contract/getAll", deleted);
   }
 
   getById(id: number) {
