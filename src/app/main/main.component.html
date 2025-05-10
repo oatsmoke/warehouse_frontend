@@ -1,40 +1,44 @@
 <mat-toolbar color="primary">
-    <button color="primary" mat-flat-button routerLink="home">WareHouse</button>
-    <button (click)="getDepartments()" [matMenuTriggerFor]="menuDepartment" color="primary" mat-flat-button>Отделы
+  <button color="primary" mat-flat-button routerLink="home">WareHouse</button>
+  <button (click)="getDepartments()" [matMenuTriggerFor]="menuDepartment" color="primary" mat-flat-button>Отделы
+  </button>
+  <button (click)="getEmployees()" [matMenuTriggerFor]="menuEmployee" color="primary" mat-flat-button>Сотрудники
+  </button>
+  <button [matMenuTriggerFor]="menuContract" color="primary" mat-flat-button>Абоненты</button>
+  <button [matMenuTriggerFor]="menuControl" color="primary" mat-flat-button *ngIf="haveAccessAdmin()">Управление
+  </button>
+  <button color="primary" mat-flat-button (click)="dialogEquipmentSearch()">Поиск</button>
+  <mat-menu #menuControl="matMenu">
+    <button mat-menu-item routerLink="employee">Сотрудники</button>
+    <button mat-menu-item routerLink="department">Отделы</button>
+    <button mat-menu-item routerLink="category">Категории</button>
+    <button mat-menu-item routerLink="profile">Профили</button>
+    <button mat-menu-item routerLink="company">Компании</button>
+  </mat-menu>
+  <mat-menu #menuDepartment="matMenu">
+    <button [routerLink]="['department', 0]" mat-menu-item>Склад</button>
+    <button *ngFor="let department of departments" [routerLink]="['department', department.id]"
+            mat-menu-item>{{ department.title }}
     </button>
-    <button (click)="getEmployees()" [matMenuTriggerFor]="menuEmployee" color="primary" mat-flat-button>Сотрудники
+  </mat-menu>
+  <mat-menu #menuEmployee="matMenu">
+    <button *ngFor="let employee of employees" [routerLink]="['employee', employee.id]"
+            mat-menu-item>{{ employee.name }}
     </button>
-    <button [matMenuTriggerFor]="menuContract" color="primary" mat-flat-button>Абоненты</button>
-    <button [matMenuTriggerFor]="menuControl" color="primary" mat-flat-button *ngIf="haveAccessAdmin()">Управление</button>
-    <mat-menu #menuControl="matMenu">
-        <button mat-menu-item routerLink="employee">Сотрудники</button>
-        <button mat-menu-item routerLink="department">Отделы</button>
-        <button mat-menu-item routerLink="category">Категории</button>
-        <button mat-menu-item routerLink="profile">Профили</button>
-        <button mat-menu-item routerLink="company">Компании</button>
-    </mat-menu>
-    <mat-menu #menuDepartment="matMenu">
-        <button [routerLink]="['department', 0]" mat-menu-item>Склад</button>
-        <button *ngFor="let department of departments" [routerLink]="['department', department.id]"
-                mat-menu-item>{{department.title}}</button>
-    </mat-menu>
-    <mat-menu #menuEmployee="matMenu">
-        <button *ngFor="let employee of employees" [routerLink]="['employee', employee.id]"
-                mat-menu-item>{{employee.name}}</button>
-    </mat-menu>
-    <mat-menu #menuContract="matMenu">
-        <button (click)="dialogCreateContract()" mat-menu-item>Добавить</button>
-        <button (click)="dialogInputContract()" mat-menu-item>Найти</button>
-    </mat-menu>
-    <button [matMenuTriggerFor]="menuProfile" class="right" mat-icon-button tabindex="-1" title="Профиль">
-        <mat-icon>account_circle</mat-icon>
-    </button>
-    <mat-menu #menuProfile="matMenu">
-        <mat-toolbar color="primary">
-            {{employee.name}}
-        </mat-toolbar>
-        <mat-divider></mat-divider>
-        <button mat-menu-item>Выход</button>
-    </mat-menu>
+  </mat-menu>
+  <mat-menu #menuContract="matMenu">
+    <button (click)="dialogCreateContract()" mat-menu-item>Добавить</button>
+    <button (click)="dialogInputContract()" mat-menu-item>Найти</button>
+  </mat-menu>
+  <button [matMenuTriggerFor]="menuProfile" class="right" mat-icon-button tabindex="-1" title="Профиль">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #menuProfile="matMenu">
+    <mat-toolbar color="primary">
+      {{ employee.name }}
+    </mat-toolbar>
+    <mat-divider></mat-divider>
+    <button mat-menu-item>Выход</button>
+  </mat-menu>
 </mat-toolbar>
 <router-outlet></router-outlet>

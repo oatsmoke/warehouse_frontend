@@ -40,7 +40,12 @@ import {RouterModule, Routes} from "@angular/router";
 import {AuthFormComponent} from './auth-form/auth-form.component';
 import {HomeComponent} from './home/home.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {DialogContractCreateForm, DialogContractInputForm, MainComponent} from './main/main.component';
+import {
+  DialogContractCreateForm,
+  DialogContractInputForm,
+  DialogEquipmentSearchForm,
+  MainComponent
+} from './main/main.component';
 import {DialogEmployeeDeleteRestore, DialogEmployeeForm, EmployeeComponent} from './employee/employee.component';
 import {EmployeeFormComponent} from './employee-form/employee-form.component';
 import {ConfirmComponent} from './confirm/confirm.component';
@@ -90,10 +95,19 @@ import {EquipmentReplaceFormComponent} from './equipment-replace-form/equipment-
 import {AccessGuard} from "./access.guard";
 import {AppInitService} from "./service/app-init.service";
 import {EquipmentReportFormComponent} from './equipment-report-form/equipment-report-form.component';
+import {DialogEquipmentRestore, EquipmentInfoComponent} from './equipment-info/equipment-info.component';
+import {EquipmentInfoResolver} from "./resolver/equipment-info.resolver";
+import {EquipmentSearchFormComponent} from './equipment-search-form/equipment-search-form.component';
 
 const mainRoutes: Routes = [
 
   {path: "home", component: HomeComponent},
+  {
+    path: "equipment/:id",
+    component: EquipmentInfoComponent,
+    resolve: {equipmentInfoResolver: EquipmentInfoResolver},
+    canActivate: [AccessGuard]
+  },
   {
     path: ":partition/:id",
     component: EquipmentComponent,
@@ -162,6 +176,7 @@ export function initializeApp(appInitService: AppInitService) {
     DialogProfileDeleteRestore,
     DialogEquipmentForm,
     DialogEquipmentDelete,
+    DialogEquipmentRestore,
     DialogEquipmentTransferForm,
     DialogEquipmentReplaceForm,
     DialogDepartmentStaffForm,
@@ -192,11 +207,14 @@ export function initializeApp(appInitService: AppInitService) {
     HistoryComponent,
     ContractFormComponent,
     ContractInputFormComponent,
+    DialogEquipmentSearchForm,
     ShellComponent,
     CompanyComponent,
     CompanyFormComponent,
     EquipmentReplaceFormComponent,
-    EquipmentReportFormComponent
+    EquipmentReportFormComponent,
+    EquipmentInfoComponent,
+    EquipmentSearchFormComponent
   ],
   imports: [
     BrowserModule,

@@ -48,6 +48,10 @@ export class MainComponent implements OnInit {
     this.dialog.open(DialogContractInputForm)
   }
 
+  dialogEquipmentSearch() {
+    this.dialog.open(DialogEquipmentSearchForm)
+  }
+
   haveAccessAdmin() {
     return this.globalService.employee.role == "ADMIN"
   }
@@ -63,4 +67,10 @@ export class DialogContractCreateForm {
   selector: 'dialog-contract-input-form', templateUrl: './dialog-contract-input-form.html'
 })
 export class DialogContractInputForm {
+}
+
+@Component({
+  selector: 'dialog-equipment-search-form', templateUrl: './dialog-equipment-search-form.html'
+})
+export class DialogEquipmentSearchForm {
 }

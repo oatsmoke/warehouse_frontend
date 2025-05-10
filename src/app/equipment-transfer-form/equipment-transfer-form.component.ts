@@ -212,7 +212,7 @@ export class EquipmentTransferFormComponent implements OnInit {
                 toDepartment = value.toDepartment
             }
             let request: RequestLocation = {
-                date: new Date(value.date).toDateString(),
+                date: value.date,
                 equipment_id: e.equipment.id,
                 way: "transfer",
                 this_location: thisLocation,

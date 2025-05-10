@@ -1,0 +1,9 @@
+<div>{{equipment.equipment.profile.category.title}} {{equipment.equipment.profile.title}}({{equipment.equipment.serial_number}})</div>
+<div *ngIf="!equipment.to_department.title && !equipment.to_employee.name && !equipment.to_contract.number">Склад</div>
+<div *ngIf="equipment.to_department.title">{{equipment.to_department.title}}</div>
+<div *ngIf="equipment.to_department.title && equipment.to_employee.name">{{equipment.to_department.title}}({{equipment.to_employee.name}})</div>
+<div *ngIf="equipment.to_employee.name">{{equipment.to_employee.name}}</div>
+<div *ngIf="equipment.to_contract.number">{{equipment.to_contract.number}} {{equipment.to_contract.address}}</div>
+<button (click)="dialogRestoreEquipment(equipment.equipment.id)" *ngIf="equipment.equipment.deleted" mat-stroked-button>
+  Восстановить
+</button>

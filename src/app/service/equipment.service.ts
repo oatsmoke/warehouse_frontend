@@ -12,6 +12,7 @@ export interface Equipment {
   id: number
   serial_number: string
   profile: Profile
+  deleted: boolean
 }
 
 export interface ThisEquipment {
@@ -93,5 +94,9 @@ export class EquipmentService {
       departmentId,
       date
     })
+  }
+
+  findBySerialNumber(str: string) {
+    return this.httpClient.post<any>(this.globalService.API_URL + "/api/equipment/findBySerialNumber", {"search": str})
   }
 }

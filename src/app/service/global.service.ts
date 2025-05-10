@@ -4,12 +4,13 @@ import {MatDialog} from "@angular/material/dialog";
 import {FormControl} from "@angular/forms";
 import {Contract} from "./contract.service";
 import {Employee} from "./employee.service";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalService {
-  API_URL = "http://localhost:8081"
+  API_URL = environment.api;
   employee!: Employee
   restore = "Восстановить"
   delete = "Удалить"

@@ -96,7 +96,7 @@ export class EquipmentComponent implements OnInit {
   }
 
   dialogDeleteEquipment(id: number) {
-    this.dialog.open(DialogEquipmentDelete).afterClosed().pipe(first()).subscribe(value => {
+    this.dialog.open(DialogEquipmentDelete, {data: this.globalService.delete}).afterClosed().pipe(first()).subscribe(value => {
       if (value) {
         this.equipmentService.delete(id).pipe(first()).subscribe({
           next: _ => {

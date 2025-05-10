@@ -1,21 +1,21 @@
 <div class="centerForm">
-    <form [formGroup]="authForm">
-        Авторизация
-        <br>
-        <mat-form-field appearance="outline">
-            <mat-label>Логин</mat-label>
-            <input [formControl]="login" matInput type="text">
-            <mat-error *ngIf="login.invalid">{{inputErrorMessage(login)}}</mat-error>
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="outline">
-            <mat-label>Пароль</mat-label>
-            <input [formControl]="password" matInput type="password">
-            <mat-error *ngIf="password.invalid">{{inputErrorMessage(password)}}</mat-error>
-        </mat-form-field>
-        <br>
-        <button (click)="submit()" [disabled]="authForm.invalid" mat-stroked-button>
-            Войти
-        </button>
-    </form>
+  <form [formGroup]="authForm">
+    Авторизация
+    <br>
+    <mat-form-field appearance="outline">
+      <mat-label>Логин</mat-label>
+      <input [formControl]="login" matInput type="text">
+      <mat-error *ngIf="login.invalid">{{ inputErrorMessage(login) }}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline">
+      <mat-label>Пароль</mat-label>
+      <input [formControl]="password" matInput type="password">
+      <mat-error *ngIf="password.invalid">{{ inputErrorMessage(password) }}</mat-error>
+    </mat-form-field>
+    <br>
+    <button (click)="submit()" [disabled]="authForm.invalid" mat-stroked-button>
+      Войти
+    </button>
+  </form>
 </div>

@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+  Найти оборудование
+  <div class="rightPositionToolBar">
+    <button (click)="close()" mat-icon-button tabindex="-1" title="Закрыть">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<form [formGroup]="equipmentSearchForm">
+  <mat-form-field>
+    <mat-label>Серийный номер</mat-label>
+    <input (ngModelChange)="equipmentSearch()" [formControl]="number" [matAutocomplete]="auto" matInput type="text">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let equipment of equipments"
+                  [value]="equipment.serial_number" (click)="selectEquipment(equipment.id)">
+        {{ equipment.profile.title }}({{ equipment.serial_number }})
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="number.invalid">{{ inputErrorMessage(number) }}</mat-error>
+  </mat-form-field>
+  <br>
+  <!--  <button (click)="ok()" [disabled]="searchContractForm.invalid" mat-stroked-button>OK</button>-->
+</form>
